@@ -340,6 +340,6 @@ ASALocalRun/
 healthchecksdb
 
 #some file to ignore 
-template
-comdb
-project DOTNET
+template/
+comdb.sql
+project DOTNET.rar
