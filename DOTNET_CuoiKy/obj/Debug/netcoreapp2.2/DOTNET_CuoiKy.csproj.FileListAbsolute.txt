@@ -33,3 +33,38 @@ C:\Users\Do Tan Sang\Desktop\project DOTNET\DOTNET_CuoiKy\obj\Debug\netcoreapp2.
 C:\Users\Do Tan Sang\Desktop\project DOTNET\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Sanphams\Details.g.cshtml.cs
 C:\Users\Do Tan Sang\Desktop\project DOTNET\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Sanphams\Edit.g.cshtml.cs
 C:\Users\Do Tan Sang\Desktop\project DOTNET\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Sanphams\Index.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\bin\Debug\netcoreapp2.2\DOTNET_CuoiKy.deps.json
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\bin\Debug\netcoreapp2.2\DOTNET_CuoiKy.runtimeconfig.json
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\bin\Debug\netcoreapp2.2\DOTNET_CuoiKy.runtimeconfig.dev.json
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\bin\Debug\netcoreapp2.2\DOTNET_CuoiKy.dll
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\bin\Debug\netcoreapp2.2\DOTNET_CuoiKy.pdb
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\bin\Debug\netcoreapp2.2\DOTNET_CuoiKy.Views.dll
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\bin\Debug\netcoreapp2.2\DOTNET_CuoiKy.Views.pdb
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.csprojAssemblyReference.cache
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.csproj.CoreCompileInputs.cache
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.RazorAssemblyInfo.cache
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.RazorAssemblyInfo.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.AssemblyInfoInputs.cache
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.AssemblyInfo.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.TagHelpers.input.cache
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.TagHelpers.output.cache
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.RazorCoreGenerate.cache
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Sanphams\Create.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Sanphams\Delete.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Sanphams\Details.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Sanphams\Edit.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Sanphams\Index.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.RazorTargetAssemblyInfo.cache
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.RazorTargetAssemblyInfo.cs
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.Views.pdb
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.dll
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.pdb
+E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.csproj.CopyComplete
