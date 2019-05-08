@@ -13222,23 +13222,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Do Tan Sang\\.nuget\\packages\\": {},
+    "C:\\Users\\NHAN.VT2126\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Do Tan Sang\\Desktop\\project DOTNET\\DOTNET_CuoiKy\\DOTNET_CuoiKy.csproj",
+      "projectUniqueName": "E:\\BC\\dotnet\\dotnetGiT\\Sangdt\\dotnet_cuoiky\\DOTNET_CuoiKy\\DOTNET_CuoiKy.csproj",
       "projectName": "DOTNET_CuoiKy",
-      "projectPath": "C:\\Users\\Do Tan Sang\\Desktop\\project DOTNET\\DOTNET_CuoiKy\\DOTNET_CuoiKy.csproj",
-      "packagesPath": "C:\\Users\\Do Tan Sang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Do Tan Sang\\Desktop\\project DOTNET\\DOTNET_CuoiKy\\obj\\",
+      "projectPath": "E:\\BC\\dotnet\\dotnetGiT\\Sangdt\\dotnet_cuoiky\\DOTNET_CuoiKy\\DOTNET_CuoiKy.csproj",
+      "packagesPath": "C:\\Users\\NHAN.VT2126\\.nuget\\packages\\",
+      "outputPath": "E:\\BC\\dotnet\\dotnetGiT\\Sangdt\\dotnet_cuoiky\\DOTNET_CuoiKy\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Do Tan Sang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\NHAN.VT2126\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13286,7 +13286,7 @@
             "version": "[1.1.6, )"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.2.4, )"
