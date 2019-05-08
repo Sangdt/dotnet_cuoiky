@@ -343,3 +343,4 @@ healthchecksdb
 template/
 comdb.sql
 project DOTNET.rar
+appsettings.json
