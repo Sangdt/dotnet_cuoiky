@@ -6,7 +6,7 @@
 bin/*
 obj/*
 .suo
-.vs/*
+/.vs/*
 # User-specific files
 *.rsuser
 *.suo
