@@ -10,11 +10,25 @@ namespace DOTNET_CuoiKy.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly comdbContext db;
+        public HomeController (comdbContext context)
+        {
+            db = context;
+        }
         public IActionResult Index()
         {
             return View();
         }
-
+        [HttpGet("/danhmucs/{dmID}")]
+        public IActionResult Danhmucs(int dmID)
+        {
+            if(db.Danhmuc.FirstOrDefault(n => n.IddanhMuc == dmID) != null)
+            {
+                List<Sanpham> spLst = db.Sanpham.Where(n => n.DanhMuc == dmID).ToList();
+                return View(spLst);
+            }
+            return RedirectToAction("Error");
+        }
         public IActionResult Privacy()
         {
             return View();

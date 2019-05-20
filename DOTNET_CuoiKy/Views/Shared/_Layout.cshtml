@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -113,7 +114,6 @@
             </div>
         </div>
     </header>
-
     <section class="welcome-post-sliders owl-carousel">
 
         <!-- Single Slide -->
@@ -179,53 +179,16 @@
             </div>
         </div>
 
-    </section>  
-
-    <section class="categories_area clearfix" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single_catagory wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-                        <img src="~/images/catagory-img/1.jpg" alt="">
-                        <div class="catagory-title">
-                            <a href="#">
-                                <h5>Food</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single_catagory wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
-                        <img src="~/images/catagory-img/2.jpg" alt="">
-                        <div class="catagory-title">
-                            <a href="#">
-                                <h5>Cooking</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single_catagory wow fadeInUp" data-wow-delay=".9s" style="visibility: visible; animation-delay: 0.9s; animation-name: fadeInUp;">
-                        <img src="~/images/catagory-img/3.jpg" alt="">
-                        <div class="catagory-title">
-                            <a href="#">
-                                <h5>Life Style</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
+    @await Component.InvokeAsync(nameof(DanhMucloader).Replace("ViewComponent", ""))
 
     @RenderBody()
 
-    <script src="~/js/jquery/jquery-2.2.4.min.js"></script>
-    <script src="~/js/bootstrap/popper.min.js"></script>
-    <script src="~/js/bootstrap/bootstrap.min.js"></script>
-    <script src="~/js/others/plugins.js"></script>
-    <script src="~/js/active.js"></script>
-    @*<a id="scrollUp" href="#top" style="position: absolute; z-index: 2147483647; display: none;"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>*@
+    <script defer="defer" src="~/js/jquery/jquery-2.2.4.min.js"></script>
+    <script defer="defer" src="~/js/bootstrap/popper.min.js"></script>
+    <script defer="defer" src="~/js/bootstrap/bootstrap.min.js"></script>
+    <script defer="defer" src="~/js/others/plugins.js"></script>
+    <script defer="defer" src="~/js/active.js"></script>
     @RenderSection("Scripts", required: false)
 
 </body>

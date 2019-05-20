@@ -68,3 +68,5 @@ E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.
 E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.dll
 E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.pdb
 E:\BC\dotnet\dotnetGiT\Sangdt\dotnet_cuoiky\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\DOTNET_CuoiKy.csproj.CopyComplete
+C:\Users\Do Tan Sang\Desktop\project DOTNET\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Home\Danhmucs.g.cshtml.cs
+C:\Users\Do Tan Sang\Desktop\project DOTNET\DOTNET_CuoiKy\obj\Debug\netcoreapp2.2\Razor\Views\Home\Components\DanhMucloader\danhmucLoader.g.cshtml.cs

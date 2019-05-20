@@ -1,0 +1,22 @@
+﻿@model IEnumerable<DOTNET_CuoiKy.Models.Danhmuc>
+
+
+<section class="categories_area clearfix" id="about">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm">
+                    <div class="single_catagory wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                        <img src="~/images/catagory-img/@(item.IddanhMuc).jpg" alt="">
+                        <div class="catagory-title">
+                            <a asp-action="Danhmucs" asp-controller="home" asp-route-dmID="@item.IddanhMuc">
+                                <h5> @item.TenDm.ToUpper()</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

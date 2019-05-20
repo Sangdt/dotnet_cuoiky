@@ -12,7 +12,6 @@ namespace DOTNET_CuoiKy.Controllers
     public class SanphamsController : Controller
     {
         private readonly comdbContext _context;
-
         public SanphamsController(comdbContext context)
         {
             _context = context;

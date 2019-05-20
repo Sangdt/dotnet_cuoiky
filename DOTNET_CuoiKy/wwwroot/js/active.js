@@ -9,8 +9,6 @@
             autoplay: true,
             smartSpeed: 1500,
             margin: 10,
-            nav: true,
-            navText: ['', ''],
             responsive: {
                 320: {
                     items: 1
