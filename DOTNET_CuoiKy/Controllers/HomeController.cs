@@ -19,6 +19,16 @@ namespace DOTNET_CuoiKy.Controllers
         {
             return View();
         }
+        [HttpGet("/sanphams/{idsp}")]
+        public IActionResult Chitiets(int idsp)
+        {
+            if (db.Sanpham.FirstOrDefault(n => n.IdsanPham == idsp) != null)
+            {
+                List<Sanpham> spLst = db.Sanpham.Where(n => n.IdsanPham == idsp).ToList();
+                return View(spLst);
+            }
+            return RedirectToAction("Error");
+        }
         [HttpGet("/danhmucs/{dmID}")]
         public IActionResult Danhmucs(int dmID)
         {

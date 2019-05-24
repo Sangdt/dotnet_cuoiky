@@ -4,7 +4,7 @@
     ViewData["Title"] = "Danhmucs";
 }
 
-<h1>Danhmucs</h1>
+<h1>Danh mục </h1>
 <section class="blog_area section_padding_0_80">
     <div class="container">
         <div class="row justify-content-center">
@@ -23,15 +23,17 @@
                                     <div class="post-meta d-flex">
                                         <div class="post-author-date-area d-flex">
                                             <!-- Post Author -->
-                                            <div class="post-author">
-                                                @item.GiaSp
-                                            </div>
+                                            
                                         </div>
                                         <!-- Post Comment & Share Area -->
                                     </div>
-                                    <a href="#">
+                                    <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@item.IdsanPham">
+
                                         <h4 class="post-headline">@item.TenSp</h4>
-                                        <h5 class="post-headline">@item.MoTa</h5>
+
+                                        <a href="#" class="read-more">Continue Reading..</a>
+
+
                                     </a>
                                 </div>
                             </div>

@@ -1,0 +1,375 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<DOTNET_CuoiKy.Models.Sanpham>
+
+
+@{
+    ViewData["Title"] = "Chitiets";
+}
+
+<h1>Chi tiết về thức ăn, nước uống </h1>
+<section class="blog_area section_padding_0_80">
+    <div class="container">
+        <div class="row justify-content-center">
+            @** <div class="col-12 col-lg-8">
+                <div class="row">*@
+
+            <div style="margin-left:500px" class="col-lg-12">
+
+                <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="preview col-md-4">
+
+                            <div class="preview-pic tab-content">
+                                <div class="tab-pane active" id="pic-1"><img src="~/@item.Hinh1" /></div>
+                                <div class="tab-pane" id="pic-2"><img src="~/@item.Hinh2" /></div>
+                                <div class="tab-pane" id="pic-3"><img src="~/@item.Hinh3" /></div>
+                                <div class="tab-pane" id="pic-4"><img src="~/@item.Hinh4" /></div>
+
+                            </div>
+                            <ul class="preview-thumbnail nav nav-tabs">
+                                <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="~/@item.Hinh1" /></a></li>
+                                <li><a data-target="#pic-2" data-toggle="tab"><img src="~/@item.Hinh2" /></a></li>
+                                <li><a data-target="#pic-3" data-toggle="tab"><img src="~/@item.Hinh3" /></a></li>
+
+                                <li><a data-target="#pic-4" data-toggle="tab"><img src="~/@item.Hinh4" /></a></li>
+                            </ul>
+
+                        </div>
+                        <div class="details col-md-8">
+                            <h3 class="product-title">@item.TenSp</h3>
+                            <div class="rating">
+                                <div class="stars">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                <span class="review-no">41 reviews</span>
+                            </div>
+                            <p >@item.MoTa</p>
+                            <h4 class="price">Giá: <span>@item.GiaSp</span></h4>
+                            
+                            
+                            <div class="action">
+                                <button class="add-to-cart btn btn-default" type="button">Đặt hàng</button>
+                                <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                            </div>
+                        </div>
+
+                    }
+
+                    @*@foreach (var item in Model)
+                        {
+                            <div class="post-thumb">
+                                <img src="~/@item.Hinh1" alt="">
+
+                            </div>
+
+                            <div class="post-content">
+                                <div class="post-meta d-flex">
+                                    <div class="post-author-date-area d-flex">
+                                        <!-- Post Author -->
+                                        <div class="post-author">
+                                            <a href="#">By Marian</a>
+                                        </div>
+                                        <!-- Post Date -->
+                                        <div class="post-date">
+                                            <a href="#">May 19, 2017</a>
+                                        </div>
+                                    </div>
+                                    <!-- Post Comment & Share Area -->
+                                    <div class="post-comment-share-area d-flex">
+                                        <!-- Post Favourite -->
+                                        <div class="post-favourite">
+                                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
+                                        </div>
+                                        <!-- Post Comments -->
+                                        <div class="post-comments">
+                                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+                                        </div>
+                                        <!-- Post Share -->
+                                        <div class="post-share">
+                                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <h4 class="post-headline">@item.TenSp</h4>
+                                </a>
+                                <p>@item.MoTa</p>
+                                <div class="post-meta d-flex">
+                                    <div class="post-author-date-area d-flex">
+                                        <!-- Post Author -->
+                                        <div class="post-author" style="color:red">
+
+                                            @item.GiaSp
+                                        </div>
+                                    </div>
+                                    <!-- Post Comment & Share Area -->
+                                </div>
+
+                            </div>*@
+
+
+
+
+                    @*<div class="post-thumb">
+                            <img src="~/@item.Hinh2" alt="">
+                        </div>
+                        <div class="post-thumb">
+                            <img src="~/@item.Hinh3" alt="">
+                        </div>
+                        <div class="post-thumb">
+                            <img src="~/@item.Hinh4" alt="">
+                        </div>*@
+
+                    <!-- Post Thumb -->
+                    <!-- Post Content -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @* </div>
+        </div>*@
+
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+</section>
+<style>
+    body {
+        font-family: 'open sans';
+        overflow-x: hidden;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .preview {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .media screen and (max-width: 996px) {
+        .preview
+
+    {
+        margin-bottom: 20px;
+    }
+
+    }
+
+    .preview-pic {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+
+    .preview-thumbnail.nav-tabs {
+        border: none;
+        margin-top: 15px;
+    }
+
+        .preview-thumbnail.nav-tabs li {
+            width: 18%;
+            margin-right: 2.5%;
+        }
+
+            .preview-thumbnail.nav-tabs li img {
+                max-width: 100%;
+                display: block;
+            }
+
+            .preview-thumbnail.nav-tabs li a {
+                padding: 0;
+                margin: 0;
+            }
+
+            .preview-thumbnail.nav-tabs li:last-of-type {
+                margin-right: 0;
+            }
+
+    .tab-content {
+        overflow: hidden;
+    }
+
+        .tab-content img {
+            width: 100%;
+            -webkit-animation-name: opacity;
+            animation-name: opacity;
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+        }
+
+    .card {
+        margin-top: 50px;
+        background: #eee;
+        padding: 3em;
+        line-height: 1.5em;
+    }
+
+    .media screen and (min-width: 997px) {
+        .wrapper
+
+    {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    }
+
+    .details {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .colors {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+
+    .product-title, .price, .sizes, .colors {
+        text-transform: UPPERCASE;
+        font-weight: bold;
+    }
+
+        .checked, .price span {
+            color: #ff9f1a;
+        }
+
+    .product-title, .rating, .product-description, .price, .vote, .sizes {
+        margin-bottom: 15px;
+    }
+
+    .product-title {
+        margin-top: 0;
+    }
+
+    .size {
+        margin-right: 10px;
+    }
+
+        .size:first-of-type {
+            margin-left: 40px;
+        }
+
+    .color {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+        height: 2em;
+        width: 2em;
+        border-radius: 2px;
+    }
+
+        .color:first-of-type {
+            margin-left: 20px;
+        }
+
+    .add-to-cart, .like {
+        background: #ff9f1a;
+        padding: 1.2em 1.5em;
+        border: none;
+        text-transform: UPPERCASE;
+        font-weight: bold;
+        color: #fff;
+        -webkit-transition: background .3s ease;
+        transition: background .3s ease;
+    }
+
+        .add-to-cart:hover, .like:hover {
+            background: #b36800;
+            color: #fff;
+        }
+
+    .not-available {
+        text-align: center;
+        line-height: 2em;
+    }
+
+        .not-available:before {
+            font-family: fontawesome;
+            content: "\f00d";
+            color: #fff;
+        }
+
+    .orange {
+        background: #ff9f1a;
+    }
+
+    .green {
+        background: #85ad00;
+    }
+
+    .blue {
+        background: #0076ad;
+    }
+
+    .tooltip-inner {
+        padding: 1.3em;
+    }
+
+    .-webkit-keyframes opacity {
+        0%
+
+    {
+        opacity: 0;
+        -webkit-transform: scale(3);
+        transform: scale(3);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    }
+
+    .keyframes opacity {
+        0%
+
+    {
+        opacity: 0;
+        -webkit-transform: scale(3);
+        transform: scale(3);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    }
+
+    /*# sourceMappingURL=style.css.map */
+</style>
