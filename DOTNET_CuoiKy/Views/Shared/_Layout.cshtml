@@ -61,6 +61,7 @@
             </div>
         </div>
     </div>
+
     <header class="header_area">
         <div class="container">
             <div class="row">
@@ -114,7 +115,9 @@
             </div>
         </div>
     </header>
-    <section class="welcome-post-sliders owl-carousel">
+    @await Component.InvokeAsync(nameof(SanphamHotLoader).Replace("ViewComponent", ""))
+
+    @*<section class="welcome-post-sliders owl-carousel">
 
         <!-- Single Slide -->
         <div class="welcome-single-slide">
@@ -179,7 +182,7 @@
             </div>
         </div>
 
-    </section>
+    </section>*@
     @await Component.InvokeAsync(nameof(DanhMucloader).Replace("ViewComponent", ""))
 
     @RenderBody()
