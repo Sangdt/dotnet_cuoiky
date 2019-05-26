@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DOTNET_CuoiKy.Models
+namespace DOTNET_CuoiKy.Models.DB
 {
-    public partial class comdbContext : DbContext
+    public partial class comdatabaseContext : DbContext
     {
-        public comdbContext()
+        public comdatabaseContext()
         {
         }
 
-        public comdbContext(DbContextOptions<comdbContext> options)
+        public comdatabaseContext(DbContextOptions<comdatabaseContext> options)
             : base(options)
         {
         }
@@ -26,7 +26,7 @@ namespace DOTNET_CuoiKy.Models
 //            if (!optionsBuilder.IsConfigured)
 //            {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseMySQL("server=localhost;port=3306;user=root;password=Sang1997*;database=comdb");
+//                optionsBuilder.UseMySQL("server=db4free.net;port=3306;user=dotnetcuoiky;password=gVNUSduQf64Gncf;database=comdatabase;oldguids=true");
 //            }
 //        }
 
@@ -38,7 +38,7 @@ namespace DOTNET_CuoiKy.Models
             {
                 entity.HasKey(e => new { e.IdHd, e.IdSp });
 
-                entity.ToTable("chitiethd", "comdb");
+                entity.ToTable("chitiethd", "comdatabase");
 
                 entity.HasIndex(e => e.IdHd)
                     .HasName("hoadonFK_idx");
@@ -75,7 +75,7 @@ namespace DOTNET_CuoiKy.Models
             {
                 entity.HasKey(e => e.IddanhMuc);
 
-                entity.ToTable("danhmuc", "comdb");
+                entity.ToTable("danhmuc", "comdatabase");
 
                 entity.Property(e => e.IddanhMuc)
                     .HasColumnName("iddanhMuc")
@@ -91,7 +91,7 @@ namespace DOTNET_CuoiKy.Models
             {
                 entity.HasKey(e => e.Idhoadon);
 
-                entity.ToTable("hoadon", "comdb");
+                entity.ToTable("hoadon", "comdatabase");
 
                 entity.HasIndex(e => e.IdNguoimua)
                     .HasName("nguoiMua_idx");
@@ -135,7 +135,7 @@ namespace DOTNET_CuoiKy.Models
             {
                 entity.HasKey(e => e.IdKhachHang);
 
-                entity.ToTable("khachhang", "comdb");
+                entity.ToTable("khachhang", "comdatabase");
 
                 entity.HasIndex(e => e.Email)
                     .HasName("email_UNIQUE")
@@ -177,7 +177,7 @@ namespace DOTNET_CuoiKy.Models
             {
                 entity.HasKey(e => e.IdsanPham);
 
-                entity.ToTable("sanpham", "comdb");
+                entity.ToTable("sanpham", "comdatabase");
 
                 entity.HasIndex(e => e.DanhMuc)
                     .HasName("danhMucFK_idx");

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DOTNET_CuoiKy.Models;
+using DOTNET_CuoiKy.Models.DB;
 using DOTNET_CuoiKy.Models.Client;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
@@ -15,9 +15,9 @@ namespace DOTNET_CuoiKy.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly comdbContext _context;
+        private readonly comdatabaseContext _context;
 
-        public LoginController(comdbContext context)
+        public LoginController(comdatabaseContext context)
         {
             _context = context;
         }
@@ -52,7 +52,7 @@ namespace DOTNET_CuoiKy.Controllers
                     };
                     ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-
+                    
                     await HttpContext.SignInAsync(principal);
                    return Redirect("/");
                 }

@@ -4,14 +4,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using DOTNET_CuoiKy.Models.DB;
 using DOTNET_CuoiKy.Models;
 
 namespace DOTNET_CuoiKy.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly comdbContext db;
-        public HomeController (comdbContext context)
+        private readonly comdatabaseContext db;
+        public HomeController (comdatabaseContext context)
         {
             db = context;
         }

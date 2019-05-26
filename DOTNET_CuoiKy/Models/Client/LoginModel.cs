@@ -8,7 +8,7 @@ namespace DOTNET_CuoiKy.Models.Client
     {
         [Required]
         [Display(Name ="Số điện thoại hoặc email")]
-        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$|^\+?\d{0,2}\-?\d{4,5}\-?\d{5,6}", ErrorMessage = "Please enter a valid email address or phone number")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$|^\+?\d{0,2}\-?\d{4,5}\-?\d{5,6}", ErrorMessage = "Nhập email hay số điện thôi bạn ie")]
         public string userName { get; set; }
 
         [Required]

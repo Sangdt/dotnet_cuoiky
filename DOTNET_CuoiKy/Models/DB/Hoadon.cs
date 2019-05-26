@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DOTNET_CuoiKy.Models
+namespace DOTNET_CuoiKy.Models.DB
 {
     public partial class Hoadon
     {
