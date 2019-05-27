@@ -1,23 +1,27 @@
-﻿@model IEnumerable<DOTNET_CuoiKy.Models.Sanpham>
+﻿@model IEnumerable<DOTNET_CuoiKy.Models.DB.Sanpham>
 
-
-<section class="welcome-post-sliders owl-carousel">
-    <!-- Single Slide -->
-    @foreach (var items in Model)
+@{
+    if (Context.Request.Path.Value != "/login")
     {
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="~/@items.Hinh1" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@items.IdsanPham">@items.TenSp</a>
-                    <a href="#">@items.GiaSp</a>
+        <section class="welcome-post-sliders owl-carousel">
+            <!-- Single Slide -->
+            @foreach (var items in Model)
+            {
+                <div class="welcome-single-slide">
+                    <!-- Post Thumb -->
+                    <img src="~/@items.Hinh1" alt="">
+                    <!-- Overlay Text -->
+                    <div class="project_title">
+                        <div class="post-date-commnents d-flex">
+                            <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@items.IdsanPham">@items.TenSp</a>
+                            <a href="#">@items.GiaSp</a>
+                        </div>
+                        <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@items.IdsanPham">
+                            <h5>@items.MoTa</h5>
+                        </a>
+                    </div>
                 </div>
-                <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@items.IdsanPham">
-                    <h5>@items.MoTa</h5>
-                </a>
-            </div>
-        </div>
+            }
+        </section>
     }
-</section>
+}

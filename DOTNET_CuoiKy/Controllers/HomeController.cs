@@ -4,21 +4,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using DOTNET_CuoiKy.Models.DB;
 using DOTNET_CuoiKy.Models;
 
 namespace DOTNET_CuoiKy.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly comdbContext db;
-        public HomeController (comdbContext context)
+        private readonly comdatabaseContext db;
+        public HomeController (comdatabaseContext context)
         {
             db = context;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpGet("/sanphams/{idsp}")]
         public IActionResult Chitiets(int idsp)
         {
@@ -29,6 +32,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return RedirectToAction("Error");
         }
+
         [HttpGet("/danhmucs/{dmID}")]
         public IActionResult Danhmucs(int dmID)
         {
@@ -39,6 +43,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return RedirectToAction("Error");
         }
+
         public IActionResult Privacy()
         {
             return View();

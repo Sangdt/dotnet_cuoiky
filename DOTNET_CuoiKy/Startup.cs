@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DOTNET_CuoiKy.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using DOTNET_CuoiKy.Models.DB;
 
 namespace DOTNET_CuoiKy
 {
@@ -38,7 +39,7 @@ namespace DOTNET_CuoiKy
 
                     });
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<comdbContext>(options => options.UseMySQL(connectionString));
+            services.AddDbContext<comdatabaseContext>(options => options.UseMySQL(connectionString));
             //Luôn Luôn để sau cookies config
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromHours(5);//You can set Time   

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DOTNET_CuoiKy.Models.DB;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
     public class SanphamHotLoader : ViewComponent
     {
         static Random rnd = new Random();
-        private readonly comdbContext _context;
-        public SanphamHotLoader(comdbContext context)
+        private readonly comdatabaseContext _context;
+        public SanphamHotLoader(comdatabaseContext context)
         {
             _context = context;
         }

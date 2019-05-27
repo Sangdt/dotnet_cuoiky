@@ -364,7 +364,9 @@ li {
     font-size: 13px;
     color: #222;
 }
-
+.login_register_area{
+    z-index:10;
+}
 .top_header_area .signup-search-area .login a {
     margin-right: 13px;
     border-right: 2px solid #c2c2c2;

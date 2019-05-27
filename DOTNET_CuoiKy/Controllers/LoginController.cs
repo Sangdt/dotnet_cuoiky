@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DOTNET_CuoiKy.Models;
+using DOTNET_CuoiKy.Models.DB;
 using DOTNET_CuoiKy.Models.Client;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
@@ -15,22 +15,17 @@ namespace DOTNET_CuoiKy.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly comdbContext _context;
+        private readonly comdatabaseContext _context;
 
-        public LoginController(comdbContext context)
+        public LoginController(comdatabaseContext context)
         {
             _context = context;
         }
-        [HttpGet("/login")]
-        public IActionResult Login()
+        private bool checkUserinfo(LoginRegisterModel model)
         {
-            return View();
-        }
-        private bool checkUser(LoginModel model)
-        {
-            if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName))!= null|| _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName))!=null)
+            if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName)) != null || _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName)) != null)
             {
-                if (_context.Khachhang.FirstOrDefault(n => n.Password.Equals(model.passWord))!=null)
+                if (_context.Khachhang.FirstOrDefault(n => n.Password.Equals(model.passWord)) != null)
                 {
                     return true;
                 }
@@ -38,13 +33,18 @@ namespace DOTNET_CuoiKy.Controllers
             return false;
         }
 
+        [HttpGet("/login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
         [HttpPost("/login")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel Lmodel)
+        public async Task<IActionResult> Login(LoginRegisterModel Lmodel)
         {
             if (ModelState.IsValid)
             {
-                if (checkUser(Lmodel))
+                if (checkUserinfo(Lmodel))
                 {
                     var claims = new List<Claim>
                     {
@@ -52,14 +52,25 @@ namespace DOTNET_CuoiKy.Controllers
                     };
                     ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                     await HttpContext.SignInAsync(principal);
-                   return Redirect("/");
+
+                    await HttpContext.SignInAsync(principal);
+                    return Redirect("/");
+                }
+                else
+                {
+                    ViewData["UserLoginFailed"] = "Sai tên đăng nhập hoặc mật khẩu r nha bạn ";
                 }
             }
-            ViewData["UserLoginFailed"] = "Sai tên đăng nhập hoặc mật khẩu r nha bạn ";
             return View();
         }
 
+        
+        [HttpGet("/register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [HttpGet("/logout")]
         public async Task<IActionResult> Logout()

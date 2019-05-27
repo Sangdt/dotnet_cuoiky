@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DOTNET_CuoiKy.Models.DB;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,8 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
 {
     public class DanhMucloader : ViewComponent
     {
-        private readonly comdbContext _context;
-        public DanhMucloader(comdbContext context)
+        private readonly comdatabaseContext _context;
+        public DanhMucloader(comdatabaseContext context)
         {
             _context = context;
         }
