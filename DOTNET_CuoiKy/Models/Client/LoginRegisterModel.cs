@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DOTNET_CuoiKy.Models.Client
 {
-    public partial class LoginModel
+    //Dùng cho cả đăng ký và đăng nhập
+    public partial class LoginRegisterModel
     {
         [Required]
         [Display(Name ="Số điện thoại hoặc email")]
@@ -15,6 +16,6 @@ namespace DOTNET_CuoiKy.Models.Client
         [Display(Name = "Mật khẩu của bẹn")]
         [DataType(DataType.Password)]
         public string passWord { get; set; }
-        public LoginModel() { }
+        public LoginRegisterModel() { }
     }
 }

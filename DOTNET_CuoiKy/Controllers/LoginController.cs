@@ -21,30 +21,30 @@ namespace DOTNET_CuoiKy.Controllers
         {
             _context = context;
         }
-        [HttpGet("/login")]
-        public IActionResult Login()
+        private bool checkUserinfo(LoginRegisterModel model)
         {
-            return View();
-        }
-
-        private bool checkUser(LoginModel model)
-        {
-            if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName))!= null || _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName))!=null)
+            if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName)) != null || _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName)) != null)
             {
-                if (_context.Khachhang.FirstOrDefault(n => n.Password.Equals(model.passWord))!=null)
+                if (_context.Khachhang.FirstOrDefault(n => n.Password.Equals(model.passWord)) != null)
                 {
                     return true;
                 }
             }
             return false;
         }
+
+        [HttpGet("/login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
         [HttpPost("/login")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel Lmodel)
+        public async Task<IActionResult> Login(LoginRegisterModel Lmodel)
         {
             if (ModelState.IsValid)
             {
-                if (checkUser(Lmodel))
+                if (checkUserinfo(Lmodel))
                 {
                     var claims = new List<Claim>
                     {
@@ -52,9 +52,9 @@ namespace DOTNET_CuoiKy.Controllers
                     };
                     ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                    
+
                     await HttpContext.SignInAsync(principal);
-                   return Redirect("/");
+                    return Redirect("/");
                 }
                 else
                 {
@@ -64,6 +64,13 @@ namespace DOTNET_CuoiKy.Controllers
             return View();
         }
 
+        
+        [HttpGet("/register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [HttpGet("/logout")]
         public async Task<IActionResult> Logout()
