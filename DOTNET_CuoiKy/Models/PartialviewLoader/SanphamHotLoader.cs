@@ -8,6 +8,7 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
 {
     public class SanphamHotLoader : ViewComponent
     {
+        static Random rnd = new Random();
         private readonly comdbContext _context;
         public SanphamHotLoader(comdbContext context)
         {
@@ -16,8 +17,26 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
         public IViewComponentResult Invoke()
         {
             //Select random san pham here
-            List<Danhmuc> dmLst = _context.Danhmuc.ToList();
-
+            int i = 4;
+            List<Sanpham> splist = _context.Sanpham.ToList();
+            List<Sanpham> dmLst = new List<Sanpham>();
+            Sanpham sptemp = new Sanpham();
+            while (i >= 0)
+            {
+                int r = rnd.Next(splist.Count);
+                if (dmLst.Count <= 0)
+                {
+                    dmLst.Add(splist[r]);
+                    sptemp = splist[r];
+                    i--;
+                }
+                else if(sptemp!= splist[r])
+                {
+                    dmLst.Add(splist[r]);
+                    sptemp = splist[r];
+                    i--;
+                }
+            }
             return View("sanphamHotLoader", dmLst);
         }
     }
