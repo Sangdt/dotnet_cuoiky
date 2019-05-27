@@ -52,8 +52,7 @@ namespace DOTNET_CuoiKy.Controllers
                     };
                     ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-
-                    await HttpContext.SignInAsync(principal);
+                     await HttpContext.SignInAsync(principal);
                    return Redirect("/");
                 }
             }
