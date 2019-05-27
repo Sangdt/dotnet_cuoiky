@@ -26,9 +26,10 @@ namespace DOTNET_CuoiKy.Controllers
         {
             return View();
         }
+
         private bool checkUser(LoginModel model)
         {
-            if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName))!= null|| _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName))!=null)
+            if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName))!= null || _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName))!=null)
             {
                 if (_context.Khachhang.FirstOrDefault(n => n.Password.Equals(model.passWord))!=null)
                 {
@@ -37,7 +38,6 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return false;
         }
-
         [HttpPost("/login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel Lmodel)
@@ -56,8 +56,11 @@ namespace DOTNET_CuoiKy.Controllers
                     await HttpContext.SignInAsync(principal);
                    return Redirect("/");
                 }
+                else
+                {
+                    ViewData["UserLoginFailed"] = "Sai tên đăng nhập hoặc mật khẩu r nha bạn ";
+                }
             }
-            ViewData["UserLoginFailed"] = "Sai tên đăng nhập hoặc mật khẩu r nha bạn ";
             return View();
         }
 

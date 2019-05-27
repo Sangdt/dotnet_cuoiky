@@ -3,12 +3,10 @@
 @{
     ViewData["Title"] = "User Login";
 }
+<h4 class="text-center">Đăng nhập nè bẹn</h4>
 
-<h2>User</h2>
-<h4>Login</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row justify-content-center">
+    <div class="col-md-4 ">
         @if (ViewData["UserLoginFailed"] != null)
         {
             <p class="alert alert-danger">@ViewData["UserLoginFailed"]</p>

@@ -16,10 +16,12 @@ namespace DOTNET_CuoiKy.Controllers
         {
             db = context;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpGet("/sanphams/{idsp}")]
         public IActionResult Chitiets(int idsp)
         {
@@ -30,6 +32,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return RedirectToAction("Error");
         }
+
         [HttpGet("/danhmucs/{dmID}")]
         public IActionResult Danhmucs(int dmID)
         {
@@ -40,6 +43,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return RedirectToAction("Error");
         }
+
         public IActionResult Privacy()
         {
             return View();
