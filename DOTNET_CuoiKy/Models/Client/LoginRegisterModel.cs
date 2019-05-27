@@ -16,6 +16,12 @@ namespace DOTNET_CuoiKy.Models.Client
         [Display(Name = "Mật khẩu của bẹn")]
         [DataType(DataType.Password)]
         public string passWord { get; set; }
+
+        [Display(Name = "what's your name ? nigga")]
+        public string NameKh { get; set; }
+        [Display(Name = "Anh nhà ở đâu thế ?")]
+        public string Address { get; set; }
+
         public LoginRegisterModel() { }
     }
 }

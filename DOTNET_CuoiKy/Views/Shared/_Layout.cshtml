@@ -12,6 +12,118 @@
     <link rel="icon" href="~/images/core-img/favicon.ico">
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" type="text/css" href="~/css/responsive/responsive.css" />
+    @{
+        if (Context.Request.Path.Value == "/login"|| Context.Request.Path.Value == "/register")
+        {
+            //add css style for login route here
+            <link rel="stylesheet" type="text/css" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" />
+            <style>
+                .login-block {
+                    background: #DE6262; /* fallback for old browsers */
+                    background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262); /* Chrome 10-25, Safari 5.1-6 */
+                    background: linear-gradient(to bottom, #FFB88C, #DE6262); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                    float: left;
+                    width: 100%;
+                    padding: 50px 0;
+                }
+
+                .banner-sec {
+                    background: url(https://static.pexels.com/photos/33972/pexels-photo.jpg) no-repeat left bottom;
+                    background-size: cover;
+                    min-height: 500px;
+                    border-radius: 0 10px 10px 0;
+                    padding: 0;
+                }
+
+                .container_login {
+                    background: #fff;
+                    border-radius: 10px;
+                    box-shadow: 15px 20px 0px rgba(0,0,0,0.1);
+                }
+
+                .carousel-inner_login {
+                    border-radius: 0 10px 10px 0;
+                }
+
+                .carousel-caption_login {
+                    text-align: left;
+                    left: 5%;
+                }
+
+                .login-sec {
+                    padding: 50px 30px;
+                    position: relative;
+                }
+
+                    .login-sec .copy-text {
+                        position: absolute;
+                        width: 80%;
+                        bottom: 20px;
+                        font-size: 13px;
+                        text-align: center;
+                    }
+
+                        .login-sec .copy-text i {
+                            color: #FEB58A;
+                        }
+
+                        .login-sec .copy-text a {
+                            color: #E36262;
+                        }
+
+                    .login-sec h2 {
+                        margin-bottom: 30px;
+                        font-weight: 800;
+                        font-size: 30px;
+                        color: #DE6262;
+                    }
+
+                        .login-sec h2:after {
+                            content: " ";
+                            width: 100px;
+                            height: 5px;
+                            background: #FEB58A;
+                            display: block;
+                            margin-top: 20px;
+                            border-radius: 3px;
+                            margin-left: auto;
+                            margin-right: auto
+                        }
+
+                .btn-login {
+                    background: #DE6262;
+                    color: #fff;
+                    font-weight: 600;
+                }
+
+                .banner-text {
+                    width: 70%;
+                    position: absolute;
+                    bottom: 40px;
+                    padding-left: 20px;
+                }
+
+                    .banner-text h2 {
+                        color: #fff;
+                        font-weight: 600;
+                    }
+
+                        .banner-text h2:after {
+                            content: " ";
+                            width: 100px;
+                            height: 5px;
+                            background: #FFF;
+                            display: block;
+                            margin-top: 20px;
+                            border-radius: 3px;
+                        }
+
+                    .banner-text p {
+                        color: #fff;
+                    }
+            </style>
+        }
+    }
 </head>
 <body>
     <div id="pattern-switcher">
@@ -37,12 +149,27 @@
                 <div class="col-7 col-sm-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
-                            <div class="login">
-                                <a asp-action="login" asp-controller="Login"> Login</a>
-                            </div>
-                            <div class="register">
-                                <a asp-action="register" asp-controller="Login"> Register </a>
-                            </div>
+                            @{
+                                if (User.Identity.IsAuthenticated)
+                                {
+                                    <div class="login">
+
+                                        <a>@User.Claims.FirstOrDefault(n => n.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")).Value</a>
+                                    </div>
+                                    <div class="register">
+                                        <a asp-action="Logout" asp-controller="Login"> Logout </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="login">
+                                        <a asp-action="login" asp-controller="Login"> Login</a>
+                                    </div>
+                                    <div class="register">
+                                        <a asp-action="register" asp-controller="Login"> Register </a>
+                                    </div>
+                                }
+                            }
                         </div>
                         <!-- Search Button Area -->
                         <div class="search_button">
@@ -119,70 +246,70 @@
 
     @*<section class="welcome-post-sliders owl-carousel">
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="~/images/bg-img/slide-1.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
+            <!-- Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="~/images/bg-img/slide-1.jpg" alt="">
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">May 19, 2017</a>
+                        <a href="#">5 Comment</a>
+                    </div>
+                    <a href="#">
+                        <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                    </a>
                 </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
             </div>
-        </div>
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="~/images/bg-img/slide-2.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
+            <!-- Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="~/images/bg-img/slide-2.jpg" alt="">
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">May 19, 2017</a>
+                        <a href="#">5 Comment</a>
+                    </div>
+                    <a href="#">
+                        <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                    </a>
                 </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
             </div>
-        </div>
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="~/images/bg-img/slide-3.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
+            <!-- Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="~/images/bg-img/slide-3.jpg" alt="">
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">May 19, 2017</a>
+                    </div>
+                    <a href="#">
+                        <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                    </a>
                 </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
             </div>
-        </div>
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="~/images/bg-img/slide-4.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
+            <!-- Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="~/images/bg-img/slide-4.jpg" alt="">
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">May 19, 2017</a>
+                        <a href="#">5 Comment</a>
+                    </div>
+                    <a href="#">
+                        <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                    </a>
                 </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
             </div>
-        </div>
 
-    </section>*@
+        </section>*@
     @await Component.InvokeAsync(nameof(DanhMucloader).Replace("ViewComponent", ""))
 
     @RenderBody()
@@ -193,6 +320,5 @@
     <script defer="defer" src="~/js/others/plugins.js"></script>
     <script defer="defer" src="~/js/active.js"></script>
     @RenderSection("Scripts", required: false)
-
 </body>
 </html>

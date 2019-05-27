@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DOTNET_CuoiKy.Models.DB.Sanpham>
 
 @{
-    if (Context.Request.Path.Value != "/login")
+    if (Context.Request.Path.Value != "/login"|| Context.Request.Path.Value != "/register")
     {
         <section class="welcome-post-sliders owl-carousel">
             <!-- Single Slide -->

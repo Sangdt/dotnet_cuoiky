@@ -17,8 +17,9 @@ namespace DOTNET_CuoiKy.Controllers
             db = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string message)
         {
+            ViewData["LoginMess"] = message;
             return View();
         }
 

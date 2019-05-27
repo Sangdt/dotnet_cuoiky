@@ -36,6 +36,10 @@ namespace DOTNET_CuoiKy.Controllers
         [HttpGet("/login")]
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index","Home", new { message = "Đăng nhập rồi bạn ie" });
+            }
             return View();
         }
         [HttpPost("/login")]
@@ -70,7 +74,31 @@ namespace DOTNET_CuoiKy.Controllers
         {
             return View();
         }
-        
+        private bool checkUserinfosignup(LoginRegisterModel model)
+        {
+            if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName)) != null || _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName)) != null)
+            {
+               return false;
+            }
+            return true;
+        }
+        [HttpPost("/register")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(LoginRegisterModel registerModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (checkUserinfosignup(registerModel))
+                {
+                    return Redirect("/login");
+                }
+                else
+                {
+                    ViewData["UserLoginFailed"] = "Trùng tên đăng nhập rồi nha khứa ";
+                }
+            }
+            return View();
+        }
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [HttpGet("/logout")]
         public async Task<IActionResult> Logout()
