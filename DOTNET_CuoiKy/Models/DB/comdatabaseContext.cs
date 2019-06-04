@@ -21,14 +21,14 @@ namespace DOTNET_CuoiKy.Models.DB
         public virtual DbSet<Khachhang> Khachhang { get; set; }
         public virtual DbSet<Sanpham> Sanpham { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseMySQL("server=db4free.net;port=3306;user=dotnetcuoiky;password=gVNUSduQf64Gncf;database=comdatabase;oldguids=true");
-//            }
-//        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseMySQL("host=db4free.net;port=3306;user=dotnetcuoiky;password=gVNUSduQf64Gncf;database=comdatabase;oldguids=true;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -94,12 +94,11 @@ namespace DOTNET_CuoiKy.Models.DB
                 entity.ToTable("hoadon", "comdatabase");
 
                 entity.HasIndex(e => e.IdNguoimua)
-                    .HasName("nguoiMua_idx");
+                    .HasName("nguoimuaID_idx");
 
                 entity.Property(e => e.Idhoadon)
                     .HasColumnName("idhoadon")
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.IdNguoimua)
                     .HasColumnName("idNguoimua")
@@ -128,7 +127,7 @@ namespace DOTNET_CuoiKy.Models.DB
                     .WithMany(p => p.Hoadon)
                     .HasForeignKey(d => d.IdNguoimua)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("nguoiMua");
+                    .HasConstraintName("nguoimuaID");
             });
 
             modelBuilder.Entity<Khachhang>(entity =>
@@ -143,8 +142,7 @@ namespace DOTNET_CuoiKy.Models.DB
 
                 entity.Property(e => e.IdKhachHang)
                     .HasColumnName("idKhachHang")
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Address)
                     .HasColumnName("address")

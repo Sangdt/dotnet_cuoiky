@@ -19,6 +19,6 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
             List<Danhmuc> dmLst =_context.Danhmuc.ToList();
 
             return View("danhmucLoader", dmLst);
-        }
+        } 
     }
 }

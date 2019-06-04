@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using DOTNET_CuoiKy.Models;
 
 namespace DOTNET_CuoiKy.Controllers
 {
@@ -86,10 +87,18 @@ namespace DOTNET_CuoiKy.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(LoginRegisterModel registerModel)
         {
+            string password2 = PasswordCrypt.CreateMD5(registerModel.passWord);
             if (ModelState.IsValid)
             {
-                if (checkUserinfosignup(registerModel))
+               
+                if (checkUserinfosignup(registerModel)) 
                 {
+                    Khachhang obj = new Khachhang();
+                    obj.Email = registerModel.userName;
+                    //obj.SoDiethoai = registerModel.userName;
+                    obj.Password = password2;
+                    _context.Khachhang.Add(obj);
+                    _context.SaveChanges();
                     return Redirect("/login");
                 }
                 else
