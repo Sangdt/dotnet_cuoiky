@@ -32,26 +32,33 @@ namespace DOTNET_CuoiKy
         public void ConfigureServices(IServiceCollection services)
         {
             //Luôn Luôn để trước session config
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication(o =>
+            {
+                o.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
                     .AddCookie(options =>
                     {
                         options.LoginPath = "/Login/";
 
+                    }).AddCookie("Admin", o =>
+                    {
+                        o.LoginPath = "/admin/useradmin/login/";
                     });
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<comdatabaseContext>(options => options.UseMySQL(connectionString));
             //Luôn Luôn để sau cookies config
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromHours(5);//You can set Time   
             });
-           
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -68,6 +75,10 @@ namespace DOTNET_CuoiKy
             app.UseSession();
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "Admin",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

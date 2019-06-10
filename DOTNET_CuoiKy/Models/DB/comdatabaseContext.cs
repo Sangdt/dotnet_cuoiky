@@ -15,6 +15,7 @@ namespace DOTNET_CuoiKy.Models.DB
         {
         }
 
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Chitiethd> Chitiethd { get; set; }
         public virtual DbSet<Danhmuc> Danhmuc { get; set; }
         public virtual DbSet<Hoadon> Hoadon { get; set; }
@@ -33,6 +34,25 @@ namespace DOTNET_CuoiKy.Models.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
+
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.HasKey(e => e.Username);
+
+                entity.ToTable("admin", "comdatabase");
+
+                entity.Property(e => e.Username)
+                    .HasColumnName("username")
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnName("password")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
 
             modelBuilder.Entity<Chitiethd>(entity =>
             {
