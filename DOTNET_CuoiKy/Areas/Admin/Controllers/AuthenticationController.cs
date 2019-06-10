@@ -70,6 +70,12 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
             return View();
         }
 
+        [Authorize(AuthenticationSchemes = "Admin")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Admin");
+            return RedirectToAction("Index");
+        }
         // GET: Authentication/Details/5
     }
 }
