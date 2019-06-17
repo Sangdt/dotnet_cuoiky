@@ -1,6 +1,7 @@
 ﻿@model DOTNET_CuoiKy.Models.DB.Admin
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "";
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 
@@ -38,7 +39,9 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" asp-action="Login">
+                <form autocomplete="off" class="login100-form validate-form" asp-action="Login">
+                    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+
                     <span class="login100-form-title p-b-43">
                         Login to continue
                     </span>

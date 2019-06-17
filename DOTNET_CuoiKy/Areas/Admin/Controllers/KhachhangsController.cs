@@ -10,9 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
+    [Area("Admin")]
     [Authorize(AuthenticationSchemes = "Admin")]
-    [Area("admin")]
-
     public class KhachhangsController : Controller
     {
         private readonly comdatabaseContext _context;

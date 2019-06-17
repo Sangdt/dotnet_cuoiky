@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(AuthenticationSchemes = "admin")]
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class DanhmucsController : Controller
     {
         private readonly comdatabaseContext _context;

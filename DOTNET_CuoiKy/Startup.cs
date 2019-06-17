@@ -42,7 +42,7 @@ namespace DOTNET_CuoiKy
 
                     }).AddCookie("Admin", o =>
                     {
-                        o.LoginPath = "/admin/useradmin/login/";
+                        o.LoginPath = "/Admin/Authentication/";
                     });
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<comdatabaseContext>(options => options.UseMySQL(connectionString));

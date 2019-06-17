@@ -14,7 +14,7 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
     //[Authorize(AuthenticationSchemes = "Admin")]
 
-    [Area("admin")]
+    [Area("Admin")]
     public class AuthenticationController : Controller
     {
         private readonly comdatabaseContext _context;
@@ -24,14 +24,9 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         }
         private bool checkUserinfo(Admin user)
         {
-            if (_context.Admin.FirstOrDefault(n => n.Username.Equals(user.Username)) != null || _context.Admin.FirstOrDefault(n => n.Password.Equals(user.Password)) != null)
-            {
-                if (_context.Admin.FirstOrDefault(n => n.Password.Equals(user.Password)) != null)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return _context.Admin.FirstOrDefault(n => n.Username.Equals(user.Username)) != null && _context.Admin.FirstOrDefault(n => n.Password.Equals(user.Password)) != null;
+
+         
         }
         [AllowAnonymous]
         // GET: Authentication
@@ -45,10 +40,11 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Admin admin)
+        public async Task<IActionResult> Index(Admin admin, string returnUrl = "")
         {
             if (ModelState.IsValid)
             {
+                var cc = checkUserinfo(admin);
                 if (checkUserinfo(admin))
                 {
                     var claims = new List<Claim>
@@ -60,7 +56,11 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
                     ClaimsPrincipal principal = new ClaimsPrincipal(user);
 
                     await HttpContext.SignInAsync("Admin",principal);
-                    return Redirect("/Admin/");
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
+                    else
+                        return RedirectToAction("Index", "Home");
+                    //return Redirect("/Admin/");
                 }
                 else
                 {

@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
-  
 
-    [Area("admin")]
+    [Area("Admin")]
+    [Authorize(AuthenticationSchemes = "Admin")]
+
     public class HomeController : Controller
     {
-        [Authorize(AuthenticationSchemes = "Admin")]
         public IActionResult Index()
         {
             return View();
