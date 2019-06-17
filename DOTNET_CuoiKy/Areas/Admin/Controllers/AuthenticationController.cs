@@ -39,7 +39,7 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Homeadmin", new { message = "Đăng nhập rồi bạn ie" });
+                return RedirectToAction("Index", "Home", new { message = "Đăng nhập rồi bạn ie" });
             }
             return View();
         }

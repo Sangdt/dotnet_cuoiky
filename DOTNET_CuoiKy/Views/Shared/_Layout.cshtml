@@ -2,18 +2,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - DOTNET_CuoiKy</title>
 
+
     @*<link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css" />*@
     <link rel="icon" href="~/images/core-img/favicon.ico">
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" type="text/css" href="~/css/responsive/responsive.css" />
+   
     @{
-        if (Context.Request.Path.Value == "/login"|| Context.Request.Path.Value == "/register")
+        if (Context.Request.Path.Value == "/login" || Context.Request.Path.Value == "/register")
         {
             //add css style for login route here
             <link rel="stylesheet" type="text/css" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" />
@@ -126,9 +129,16 @@
     }
 </head>
 <body>
+    
+
     <div id="pattern-switcher">
-        Bg Pattern
+
+       Bấm vào đi 
+        
+
+
     </div>
+
     <div id="patter-close">
         <i class="fa fa-times" aria-hidden="true"></i>
     </div>
@@ -227,7 +237,7 @@
                                     <a class="nav-link" href="#">Categories</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="archive.html">Archive</a>
+                                    <a class="nav-link" href="archive.html">Quản Trị</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">About</a>
@@ -239,7 +249,7 @@
                         </div>
                     </nav>
                 </div>
-            </div>
+            </div> <audio style="margin-left:300px" controls="controls" height="100" width="100" src="~/js/Chiec-Bung-Doi-Be-Thanh-Ngan.mp3" loop="loop"></audio>
         </div>
     </header>
     @await Component.InvokeAsync(nameof(SanphamHotLoader).Replace("ViewComponent", ""))
@@ -320,5 +330,7 @@
     <script defer="defer" src="~/js/others/plugins.js"></script>
     <script defer="defer" src="~/js/active.js"></script>
     @RenderSection("Scripts", required: false)
+
 </body>
+
 </html>

@@ -7,27 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
+  
 
-    [Authorize(AuthenticationSchemes = "Admin")]
     [Area("admin")]
     public class HomeController : Controller
     {
+        [Authorize(AuthenticationSchemes = "Admin")]
         public IActionResult Index()
         {
-            
             return View();
-
-
-            //if (ISession["accname"] == null)
-            //{
-            //    ISession["accname"] = null;
-            //    return RedirectToAction("Login", "useradmin");
-            //}
-            //else
-            //{
-            //    
-            //}
-
         }
     }
 }

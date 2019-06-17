@@ -24,10 +24,79 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\admin\Data\" />
     <Folder Include="Areas\admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Models\DB\" />
-    <Folder Include="wwwroot\admin\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\admin\assets\css\animate.min.css" />
+    <None Include="wwwroot\admin\assets\css\bootstrap.min.css" />
+    <None Include="wwwroot\admin\assets\css\demo.css" />
+    <None Include="wwwroot\admin\assets\css\light-bootstrap-dashboard.css" />
+    <None Include="wwwroot\admin\assets\css\pe-icon-7-stroke.css" />
+    <None Include="wwwroot\admin\assets\fonts\Pe-icon-7-stroke.eot" />
+    <None Include="wwwroot\admin\assets\fonts\Pe-icon-7-stroke.svg" />
+    <None Include="wwwroot\admin\assets\fonts\Pe-icon-7-stroke.ttf" />
+    <None Include="wwwroot\admin\assets\fonts\Pe-icon-7-stroke.woff" />
+    <None Include="wwwroot\admin\assets\img\default-avatar.png" />
+    <None Include="wwwroot\admin\assets\img\faces\face-0.jpg" />
+    <None Include="wwwroot\admin\assets\img\faces\face-1.jpg" />
+    <None Include="wwwroot\admin\assets\img\faces\face-2.jpg" />
+    <None Include="wwwroot\admin\assets\img\faces\face-3.jpg" />
+    <None Include="wwwroot\admin\assets\img\faces\face-4.jpg" />
+    <None Include="wwwroot\admin\assets\img\faces\face-5.jpg" />
+    <None Include="wwwroot\admin\assets\img\faces\face-6.jpg" />
+    <None Include="wwwroot\admin\assets\img\faces\face-7.jpg" />
+    <None Include="wwwroot\admin\assets\img\faces\tim_vector.jpe" />
+    <None Include="wwwroot\admin\assets\img\favicon.ico" />
+    <None Include="wwwroot\admin\assets\img\full-screen-image-3.jpg" />
+    <None Include="wwwroot\admin\assets\img\loading-bubbles.svg" />
+    <None Include="wwwroot\admin\assets\img\mask.png" />
+    <None Include="wwwroot\admin\assets\img\new_logo.png" />
+    <None Include="wwwroot\admin\assets\img\sidebar-1.jpg" />
+    <None Include="wwwroot\admin\assets\img\sidebar-2.jpg" />
+    <None Include="wwwroot\admin\assets\img\sidebar-3.jpg" />
+    <None Include="wwwroot\admin\assets\img\sidebar-4.jpg" />
+    <None Include="wwwroot\admin\assets\img\sidebar-5.jpg" />
+    <None Include="wwwroot\admin\assets\img\tim_80x80.png" />
+    <None Include="wwwroot\admin\assets\js\bootstrap-notify.js" />
+    <None Include="wwwroot\admin\assets\js\bootstrap-select.js" />
+    <None Include="wwwroot\admin\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\admin\assets\js\chartist.min.js" />
+    <None Include="wwwroot\admin\assets\js\demo.js" />
+    <None Include="wwwroot\admin\assets\js\jquery.3.2.1.min.js" />
+    <None Include="wwwroot\admin\assets\js\light-bootstrap-dashboard.js" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_buttons.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_cards.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_chartist.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_icons.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_inputs.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_labels.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_morphing-buttons.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_navbars.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_social-buttons.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_tabs.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_transparency.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\mixins\_vendor-prefixes.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_alerts.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_buttons.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_cards.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_chartist.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_checkbox-radio-switch.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_dropdown.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_footers.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_inputs.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_misc.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_mixins.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_navbars.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_responsive.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_sidebar-and-main-panel.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_tables.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_typography.scss" />
+    <None Include="wwwroot\admin\assets\sass\lbd\_variables.scss" />
+    <None Include="wwwroot\admin\assets\sass\light-bootstrap-dashboard.scss" />
   </ItemGroup>
 
 </Project>
