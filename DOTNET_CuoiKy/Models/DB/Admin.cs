@@ -9,7 +9,6 @@ namespace DOTNET_CuoiKy.Models.DB
         
         [Required]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Nhập email bạn ie")]
-
         public string Username { get; set; }
         public string Password { get; set; }
     }
