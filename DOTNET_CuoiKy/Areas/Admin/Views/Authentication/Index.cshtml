@@ -35,27 +35,6 @@
     <!--===============================================================================================-->
 </head>
 <body style="background-color: #666666;">
-    <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Thông báo từ Server</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                </div>
-                <div class="modal-body justify-content-center">
-                    <h3>@ViewData["UserLoginFailed"]</h3>
-                    <hr />
-
-                    <img src="~/admin/images/login-fail.jpg" style="max-height: 250px;max-width: 1000px; " />
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="limiter">
         <div class="container-login100">
@@ -81,6 +60,9 @@
                         <input type="submit" value="Login" class="btn btn-default btn-success" />
                     </div>
                 </form>
+
+
+
                 <div class="login100-more" style="background-image: url('/admin/images/bg-01.jpg');">
                 </div>
             </div>
@@ -107,23 +89,6 @@
     <script src="~/admin/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
     <script src="~/admin/js/main.js"></script>
-    @{
-        if (ViewData["UserLoginFailed"] != null)
-        {
-            <style>
-                h2 {
-                    text-align: center;
-                }
 
-                .p {
-                    text-align: center;
-                    padding-top: 130px;
-                }
-            </style>
-            <script>
-                $('#smallModal').modal('show');
-            </script>
-        }
-    }
 </body>
 </html>

@@ -1,0 +1,42 @@
+﻿@model DOTNET_CuoiKy.Models.DB.Chitiethd
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Chitiethd</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Soluong)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Soluong)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaSp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GiaSp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdHdNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdHdNavigation.Idhoadon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSpNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdSpNavigation.IdsanPham)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

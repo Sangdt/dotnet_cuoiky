@@ -47,26 +47,32 @@
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text">
-                        Creative Tim
+                        Quản Lý
                     </a>
                 </div>
                 <ul class="nav">
                     <li>
-                        <a href="dashboard.html">
+                        <a href="@Url.Action("Index", "Danhmucs")">
                             <i class="pe-7s-graph"></i>
-                            <p>Dashboard</p>
+                            <p>DANH MỤC</p>
                         </a>
                     </li>
                     <li>
-                        <a href="user.html">
+                        <a href=@Url.Action("Index", "Khachhangs")>
                             <i class="pe-7s-user"></i>
-                            <p>User Profile</p>
+                            <p>KHÁCH HÀNG</p>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="table.html">
+                    <li >
+                        <a href=@Url.Action("Index", "Hoadons")>
                             <i class="pe-7s-note2"></i>
-                            <p>Table List</p>
+                            <p>HÓA ĐƠN</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href=@Url.Action("Index", "Sanphams")>
+                            <i class="pe-7s-science"></i>
+                            <p>SẢN PHẨM</p>
                         </a>
                     </li>
                     <li>
@@ -75,12 +81,7 @@
                             <p>Typography</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="icons.html">
-                            <i class="pe-7s-science"></i>
-                            <p>Icons</p>
-                        </a>
-                    </li>
+
                     <li>
                         <a href="maps.html">
                             <i class="pe-7s-map-marker"></i>
@@ -171,16 +172,26 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">
-                                    <p>Log out</p>
-                                </a>
+                                @{
+                                    if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="login">
+
+                                            <a>Xin chào @User.Claims.FirstOrDefault(n => n.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")).Value</a>
+                                        </div>
+                                        <div class="register">
+                                            <a asp-action="Logout" asp-controller="Authentication"> Đăng xuất </a>
+                                        </div>
+                                    }
+                                    
+                                }
                             </li>
                             <li class="separator hidden-lg hidden-md"></li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            <div>@RenderBody()
+            <div style="margin-left:20px">@RenderBody()
             </div>
             
             <footer class="footer">

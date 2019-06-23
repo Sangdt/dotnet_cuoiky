@@ -1,0 +1,54 @@
+﻿@model DOTNET_CuoiKy.Models.DB.Hoadon
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Hoadon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdchiTiet)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdchiTiet)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TongTien)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TongTien)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayTao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NgayTao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TinhTrang)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TinhTrang)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdNguoimuaNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdNguoimuaNavigation.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Idhoadon">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

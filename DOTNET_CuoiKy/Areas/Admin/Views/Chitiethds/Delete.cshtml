@@ -1,0 +1,46 @@
+﻿@model DOTNET_CuoiKy.Models.DB.Chitiethd
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Chitiethd</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Soluong)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Soluong)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaSp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GiaSp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdHdNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdHdNavigation.Idhoadon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSpNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdSpNavigation.IdsanPham)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdHd" />
+        <input type="hidden" asp-for="IdSp" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

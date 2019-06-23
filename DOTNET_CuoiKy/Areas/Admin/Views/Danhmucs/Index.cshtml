@@ -2,20 +2,26 @@
 
 @{
     ViewData["Title"] = "Index";
-    
+
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 
-<h1>Index</h1>
-
+<h2>DANH MỤC THỨC ĂN</h2>
+<div class="text-warning">
+    @ViewBag.CateError
+</div>
+<hr />
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Tạo danh mục mới</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenDm)
+                Tên Danh Mục
+            </th>
+            <th>
+                Tùy chọn
             </th>
             <th></th>
         </tr>
@@ -29,8 +35,8 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.IddanhMuc">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.IddanhMuc">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IddanhMuc">Delete</a>
+                    
+                    <a  asp-action="Delete" asp-route-id="@item.IddanhMuc">Delete</a>
                 </td>
             </tr>
         }

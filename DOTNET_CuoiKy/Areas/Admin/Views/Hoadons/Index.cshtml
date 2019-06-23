@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DOTNET_CuoiKy.Models.DB.Hoadon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdchiTiet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayTao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TinhTrang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdNguoimuaNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdchiTiet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongTien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayTao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TinhTrang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdNguoimuaNavigation.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Idhoadon">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Idhoadon">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Idhoadon">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
