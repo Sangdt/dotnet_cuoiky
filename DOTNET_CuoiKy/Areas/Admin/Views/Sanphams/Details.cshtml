@@ -1,11 +1,12 @@
 ﻿@model DOTNET_CuoiKy.Models.DB.Sanpham
 
 @{
-    ViewData["Title"] = "Details";
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+    ViewData["Title"] = "Chi tiết sản phẩm " + @Model.TenSp;
 }
 
-<h1>Details</h1>
+<h1>Chi tiết sản phẩm @Model.TenSp</h1>
 
 <div>
     <h4>Sanpham</h4>

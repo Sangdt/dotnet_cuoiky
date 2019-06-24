@@ -1,10 +1,97 @@
 ﻿@model IEnumerable<DOTNET_CuoiKy.Models.DB.Sanpham>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách sản phẩm";
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
-<h2>THÔNG TIN VỀ MÓN ĂN</h2>
+
+@section style{
+    <style>
+        .Fcapital {
+            text-transform: capitalize;
+        }
+    </style>
+}
+
+@section warningModal{
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabel">Cảnh báo</h4>
+                </div>
+                <div class="modal-body" id="update-message">
+
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger deleteConfirm">XÁC NHẬN XÓA </a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section script{
+    <link type="text/javascript" href="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" />
+    $.noConflict();
+
+    <script type="text/javascript">
+        $(function () {
+            // Make sure everything is reset after modal closed
+            $('#flipFlop').on('hidden.bs.modal', function (e) {
+                console.log("Hidden")
+                //Clean old id to make sure shit wont break  !!!!!
+                $('#update-message').text(null);
+                var confirmBnt = document.getElementsByClassName("deleteConfirm")[0];
+                confirmBnt.id = "";
+                confirmBnt.style = "";
+
+            })
+
+            // Document.ready -> link up remove event handler
+            //Show warning modal
+            $(".deleteShit").click(function () {
+                var confirmBnt = document.getElementsByClassName("deleteConfirm")[0];
+                var itemName = $(this).attr("data-id").toLocaleUpperCase();
+                var idItem = $(this).attr("id");
+                // Set id to confirm modal button so we can delete more ez
+                confirmBnt.id = idItem;
+                $('#update-message').text("Bạn có chắc muốn xóa sản phẩm " + itemName);
+                $('#flipFlop').modal('show');
+            });
+            //Confirm delete
+            $(".deleteConfirm").click(function () {
+                $('#update-message').text("Đang gửi dữ liệu để xóa xin chờ....");
+                $('.deleteConfirm').hide();
+                var form = $('#__AjaxAntiForgeryForm');
+                var token = $('input[name="__RequestVerificationToken"]', form).val();
+                var iditem = $(this).attr("id");
+                if (iditem != '') {
+                    $.post("/admin/Sanphams/Delete", { __RequestVerificationToken: token, "itemId": iditem },
+                        function (data) {
+                            console.log('repsonse', data)
+                            $('#SanPhamLST').dataTable({
+                                "bJQueryUI": true,
+                                "bServerSide": true,
+                                "sAjaxSource": "/admin/Sanphams"
+                            });
+                            $('#update-message').text(data);
+                        });
+                }
+            });
+
+        });
+    </script>
+}
+<h2>Danh sách sản phẩm của bạn</h2>
 
 <div class="text-warning">
     @ViewBag.ProError
@@ -14,7 +101,7 @@
 <p>
     <a asp-action="Create">Tạo món ăn mới</a>
 </p>
-<table class="table">
+<table id="SanPhamLST" class="table">
     <thead>
         <tr>
             <th>
@@ -24,25 +111,10 @@
                 Giá
             </th>
             <th>
-                Hình 1
+                Danh mục của sản phẩm
             </th>
             <th>
-                Hình 2
-            </th>
-            <th>
-                Hình 3
-            </th>
-            <th>
-                hình 4
-            </th>
-            <th>
-                Mô tả
-            </th>
-            <th>
-                Id danh mục
-            </th>
-            <th>
-               Tùy chọn
+                Tùy chọn
             </th>
             <th></th>
         </tr>
@@ -52,33 +124,22 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TenSp)
+                    @*@Html.DisplayFor(modelItem => item.TenSp)*@
+                    @Html.ActionLink(item.TenSp, "Details", "Sanphams", new { id = item.IdsanPham }, null)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GiaSp)
                 </td>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.Hinh1)
+                    <span class="Fcapital">
+                        @Html.DisplayFor(modelItem => item.DanhMucNavigation.TenDm)
+                    </span>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Hinh2)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hinh3)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hinh4)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MoTa)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DanhMucNavigation.IddanhMuc)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdsanPham">Edit</a> |
-                  
-                    <a asp-action="Delete" asp-route-id="@item.IdsanPham">Delete</a>
+                    <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.IdsanPham">Sửa thông tin</a> |
+
+                    <a class="deleteShit btn btn-sm btn-danger" data-id="@item.TenSp" id="@item.IdsanPham" @*asp-action="Delete" asp-route-id="@item.IdsanPham" *@>Xóa Sản phẩm này</a>
                 </td>
             </tr>
         }

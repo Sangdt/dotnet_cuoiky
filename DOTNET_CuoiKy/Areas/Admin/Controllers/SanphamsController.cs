@@ -6,27 +6,62 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DOTNET_CuoiKy.Models.DB;
+using MySql.Data.MySqlClient;
+using System.Threading;
 using Microsoft.AspNetCore.Authorization;
 
 namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
-
     [Area("Admin")]
     [Authorize(AuthenticationSchemes = "Admin")]
     public class SanphamsController : Controller
     {
         private readonly comdatabaseContext _context;
-
+       // private List<Sanpham> spLst=null;
         public SanphamsController(comdatabaseContext context)
         {
             _context = context;
+        }
+        private IQueryable<Sanpham> GetSanphams()
+        {
+            bool success = false;
+            int retryCount = 0;
+            MySqlException exception = null;
+            while (!success && retryCount <= 6)
+            {
+                try
+                {
+                   var spLst = _context.Sanpham.Include(s => s.DanhMucNavigation);
+                    success = true;
+                    retryCount = 5;
+                }
+                catch (MySqlException e)
+                {
+                    exception = e;
+                    success = false;
+                    retryCount++;
+                    Thread.Sleep(800);
+                }
+            }
+            if (retryCount > 5)
+            {
+                throw exception;
+            }
+            return _context.Sanpham.Include(s => s.DanhMucNavigation);
         }
 
         // GET: admin/Sanphams
         public async Task<IActionResult> Index()
         {
+            bool isAjaxCall = Request.Headers["x-requested-with"] == "XMLHttpRequest";
             var comdatabaseContext = _context.Sanpham.Include(s => s.DanhMucNavigation);
-            return View(await comdatabaseContext.ToListAsync());
+            //var comdatabaseContext = GetSanphams();
+            if (isAjaxCall)
+            {
+                //return Json(await comdatabaseContext.ToListAsync());
+                return new JsonResult(await comdatabaseContext.ToListAsync());
+            }
+            return View( await comdatabaseContext.ToListAsync());
         }
 
         // GET: admin/Sanphams/Details/5
@@ -147,12 +182,20 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         // POST: admin/Sanphams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string itemId)
         {
-            var sanpham = await _context.Sanpham.FindAsync(id);
-            _context.Sanpham.Remove(sanpham);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var sanpham = await _context.Sanpham.FindAsync(int.Parse(itemId));
+            if (sanpham != null)
+            {
+                string tenSp = sanpham.TenSp;
+                _context.Sanpham.Remove(sanpham);
+                await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
+                var newspLSt = _context.Sanpham.Include(dm => dm.DanhMucNavigation);
+                return Json("Xóa sản phẩm "+tenSp+ " được rồi nè dân chơi !!!");
+            }
+            return Json("Không xóa được rồi, kiếm không ra ");
+          
         }
 
         private bool SanphamExists(int id)
