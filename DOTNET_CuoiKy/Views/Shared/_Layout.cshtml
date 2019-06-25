@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,137 +14,32 @@
     <link rel="icon" href="~/images/core-img/favicon.ico">
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" type="text/css" href="~/css/responsive/responsive.css" />
-   
-    @{
-        if (Context.Request.Path.Value == "/login" || Context.Request.Path.Value == "/register")
-        {
-            //add css style for login route here
-            <link rel="stylesheet" type="text/css" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" />
-            <style>
-                .login-block {
-                    background: #DE6262; /* fallback for old browsers */
-                    background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262); /* Chrome 10-25, Safari 5.1-6 */
-                    background: linear-gradient(to bottom, #FFB88C, #DE6262); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-                    float: left;
-                    width: 100%;
-                    padding: 50px 0;
-                }
+    <!--Load style like a fucking pro-->
+    @RenderSection("StyleLogin", required: false)
 
-                .banner-sec {
-                    background: url(https://static.pexels.com/photos/33972/pexels-photo.jpg) no-repeat left bottom;
-                    background-size: cover;
-                    min-height: 500px;
-                    border-radius: 0 10px 10px 0;
-                    padding: 0;
-                }
+    @RenderSection("SanphamDetailStyle", required: false)
 
-                .container_login {
-                    background: #fff;
-                    border-radius: 10px;
-                    box-shadow: 15px 20px 0px rgba(0,0,0,0.1);
-                }
-
-                .carousel-inner_login {
-                    border-radius: 0 10px 10px 0;
-                }
-
-                .carousel-caption_login {
-                    text-align: left;
-                    left: 5%;
-                }
-
-                .login-sec {
-                    padding: 50px 30px;
-                    position: relative;
-                }
-
-                    .login-sec .copy-text {
-                        position: absolute;
-                        width: 80%;
-                        bottom: 20px;
-                        font-size: 13px;
-                        text-align: center;
-                    }
-
-                        .login-sec .copy-text i {
-                            color: #FEB58A;
-                        }
-
-                        .login-sec .copy-text a {
-                            color: #E36262;
-                        }
-
-                    .login-sec h2 {
-                        margin-bottom: 30px;
-                        font-weight: 800;
-                        font-size: 30px;
-                        color: #DE6262;
-                    }
-
-                        .login-sec h2:after {
-                            content: " ";
-                            width: 100px;
-                            height: 5px;
-                            background: #FEB58A;
-                            display: block;
-                            margin-top: 20px;
-                            border-radius: 3px;
-                            margin-left: auto;
-                            margin-right: auto
-                        }
-
-                .btn-login {
-                    background: #DE6262;
-                    color: #fff;
-                    font-weight: 600;
-                }
-
-                .banner-text {
-                    width: 70%;
-                    position: absolute;
-                    bottom: 40px;
-                    padding-left: 20px;
-                }
-
-                    .banner-text h2 {
-                        color: #fff;
-                        font-weight: 600;
-                    }
-
-                        .banner-text h2:after {
-                            content: " ";
-                            width: 100px;
-                            height: 5px;
-                            background: #FFF;
-                            display: block;
-                            margin-top: 20px;
-                            border-radius: 3px;
-                        }
-
-                    .banner-text p {
-                        color: #fff;
-                    }
-            </style>
+    <style>
+        .topheader123123 {
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
         }
-    }
+    </style>
 </head>
 <body>
-    
+
 
     <div id="pattern-switcher">
-
-       Bấm vào đi 
-        
-
-
+        Bấm vào đi
     </div>
 
     <div id="patter-close">
         <i class="fa fa-times" aria-hidden="true"></i>
     </div>
     <div class="top_header_area">
-        <div class="container">
-            <div class="row">
+        <div class="">
+            <div class="topheader123123">
                 <div class="col-5 col-sm-6">
                     <!--  Top Social bar start -->
                     <div class="top_social_bar">
@@ -200,12 +95,14 @@
     </div>
 
     <header class="header_area">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <!-- Logo Area Start -->
                 <div class="col-12">
                     <div class="logo_area text-center">
-                        <a href="https://localhost:44380/Home" class="yummy-logo">Thức Ăn Văn Phòng</a>
+                        <a asp-action="Index" asp-controller="home" class="yummy-logo">Thức Ăn Văn Phòng</a>
+
+                            @*<a href="https://localhost:44380/Home" class="yummy-logo">Thức Ăn Văn Phòng</a>*@
                     </div>
                 </div>
             </div>
@@ -218,7 +115,7 @@
                         <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
                             <ul class="navbar-nav" id="yummy-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="https://localhost:44380/Home">Home <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" asp-action="Index" asp-controller="home" >Trang chủ <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
@@ -230,21 +127,7 @@
                                         <a class="dropdown-item" href="contact.html">Contact</a>
                                     </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Features</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Categories</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="archive.html">Quản Trị</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
+
                             </ul>
                         </div>
                     </nav>
@@ -252,75 +135,13 @@
             </div> <audio style="margin-left:300px" controls="controls" height="100" width="100" src="~/js/Chiec-Bung-Doi-Be-Thanh-Ngan.mp3" loop="loop"></audio>
         </div>
     </header>
-    @await Component.InvokeAsync(nameof(SanphamHotLoader).Replace("ViewComponent", ""))
-
-    @*<section class="welcome-post-sliders owl-carousel">
-
-            <!-- Single Slide -->
-            <div class="welcome-single-slide">
-                <!-- Post Thumb -->
-                <img src="~/images/bg-img/slide-1.jpg" alt="">
-                <!-- Overlay Text -->
-                <div class="project_title">
-                    <div class="post-date-commnents d-flex">
-                        <a href="#">May 19, 2017</a>
-                        <a href="#">5 Comment</a>
-                    </div>
-                    <a href="#">
-                        <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Slide -->
-            <div class="welcome-single-slide">
-                <!-- Post Thumb -->
-                <img src="~/images/bg-img/slide-2.jpg" alt="">
-                <!-- Overlay Text -->
-                <div class="project_title">
-                    <div class="post-date-commnents d-flex">
-                        <a href="#">May 19, 2017</a>
-                        <a href="#">5 Comment</a>
-                    </div>
-                    <a href="#">
-                        <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Slide -->
-            <div class="welcome-single-slide">
-                <!-- Post Thumb -->
-                <img src="~/images/bg-img/slide-3.jpg" alt="">
-                <!-- Overlay Text -->
-                <div class="project_title">
-                    <div class="post-date-commnents d-flex">
-                        <a href="#">May 19, 2017</a>
-                    </div>
-                    <a href="#">
-                        <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Single Slide -->
-            <div class="welcome-single-slide">
-                <!-- Post Thumb -->
-                <img src="~/images/bg-img/slide-4.jpg" alt="">
-                <!-- Overlay Text -->
-                <div class="project_title">
-                    <div class="post-date-commnents d-flex">
-                        <a href="#">May 19, 2017</a>
-                        <a href="#">5 Comment</a>
-                    </div>
-                    <a href="#">
-                        <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                    </a>
-                </div>
-            </div>
-
-        </section>*@
-    @await Component.InvokeAsync(nameof(DanhMucloader).Replace("ViewComponent", ""))
+    @{
+        if (Context.Request.Path.Value != "/login" && Context.Request.Path.Value != "/register")
+        {
+            @await Component.InvokeAsync(nameof(SanphamHotLoader).Replace("ViewComponent", ""))
+            @await Component.InvokeAsync(nameof(DanhMucloader).Replace("ViewComponent", ""))
+        }
+    }
 
     @RenderBody()
 

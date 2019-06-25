@@ -40,20 +40,22 @@
 }
 
 @section script{
-    <link type="text/javascript" href="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" />
-    $.noConflict();
 
     <script type="text/javascript">
         $(function () {
+            var deleteSuccess = false;
             // Make sure everything is reset after modal closed
             $('#flipFlop').on('hidden.bs.modal', function (e) {
-                console.log("Hidden")
-                //Clean old id to make sure shit wont break  !!!!!
-                $('#update-message').text(null);
-                var confirmBnt = document.getElementsByClassName("deleteConfirm")[0];
-                confirmBnt.id = "";
-                confirmBnt.style = "";
-
+                if (deleteSuccess) {
+                    window.location.reload();
+                } else {
+                    console.log("Hidden")
+                    //Clean old id to make sure shit wont break  !!!!!
+                    $('#update-message').text(null);
+                    var confirmBnt = document.getElementsByClassName("deleteConfirm")[0];
+                    confirmBnt.id = "";
+                    confirmBnt.style = "";
+                }
             })
 
             // Document.ready -> link up remove event handler
@@ -77,14 +79,13 @@
                 if (iditem != '') {
                     $.post("/admin/Sanphams/Delete", { __RequestVerificationToken: token, "itemId": iditem },
                         function (data) {
-                            console.log('repsonse', data)
-                            $('#SanPhamLST').dataTable({
-                                "bJQueryUI": true,
-                                "bServerSide": true,
-                                "sAjaxSource": "/admin/Sanphams"
-                            });
+                            console.log('server response', JSON.stringify(data))
+                            deleteSuccess = true;
                             $('#update-message').text(data);
-                        });
+                        }).fail(function (data) {
+                            //console.log('server response', JSON.stringify(data.responseText))
+                            $('#update-message').text(data.responseText);
+                        })
                 }
             });
 

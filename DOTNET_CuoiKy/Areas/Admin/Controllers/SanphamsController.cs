@@ -56,11 +56,11 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
             bool isAjaxCall = Request.Headers["x-requested-with"] == "XMLHttpRequest";
             var comdatabaseContext = _context.Sanpham.Include(s => s.DanhMucNavigation);
             //var comdatabaseContext = GetSanphams();
-            if (isAjaxCall)
-            {
-                //return Json(await comdatabaseContext.ToListAsync());
-                return new JsonResult(await comdatabaseContext.ToListAsync());
-            }
+            //if (isAjaxCall)
+            //{
+            //    //return Json(await comdatabaseContext.ToListAsync());
+            //    return new JsonResult(await comdatabaseContext.ToListAsync());
+            //}
             return View( await comdatabaseContext.ToListAsync());
         }
 
@@ -192,9 +192,9 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
                 var newspLSt = _context.Sanpham.Include(dm => dm.DanhMucNavigation);
-                return Json("Xóa sản phẩm "+tenSp+ " được rồi nè dân chơi !!!");
+                return Ok("Xóa sản phẩm "+tenSp+ " được rồi nè dân chơi !!!");
             }
-            return Json("Không xóa được rồi, kiếm không ra ");
+            return NotFound("Không xóa được rồi, kiếm không ra");
           
         }
 
