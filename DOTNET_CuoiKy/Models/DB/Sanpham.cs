@@ -7,6 +7,7 @@ namespace DOTNET_CuoiKy.Models.DB
     {
         public Sanpham()
         {
+            Carts = new HashSet<Carts>();
             Chitiethd = new HashSet<Chitiethd>();
         }
 
@@ -21,6 +22,7 @@ namespace DOTNET_CuoiKy.Models.DB
         public int? DanhMuc { get; set; }
 
         public virtual Danhmuc DanhMucNavigation { get; set; }
+        public virtual ICollection<Carts> Carts { get; set; }
         public virtual ICollection<Chitiethd> Chitiethd { get; set; }
     }
 }

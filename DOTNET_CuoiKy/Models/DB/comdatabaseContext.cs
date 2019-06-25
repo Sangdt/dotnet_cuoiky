@@ -16,6 +16,7 @@ namespace DOTNET_CuoiKy.Models.DB
         }
 
         public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<Carts> Carts { get; set; }
         public virtual DbSet<Chitiethd> Chitiethd { get; set; }
         public virtual DbSet<Danhmuc> Danhmuc { get; set; }
         public virtual DbSet<Hoadon> Hoadon { get; set; }
@@ -52,6 +53,54 @@ namespace DOTNET_CuoiKy.Models.DB
                     .HasColumnName("password")
                     .HasMaxLength(100)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Carts>(entity =>
+            {
+                entity.HasKey(e => e.AutoId);
+
+                entity.ToTable("Carts", "comdatabase");
+
+                entity.HasIndex(e => e.SpId)
+                    .HasName("cart_SpID_idx");
+
+                entity.HasIndex(e => e.UserId)
+                    .HasName("cart_UsrID_idx");
+
+                entity.Property(e => e.AutoId)
+                    .HasColumnName("autoID")
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.SpId)
+                    .HasColumnName("spID")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Total)
+                    .HasColumnName("total")
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("userID")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.Sp)
+                    .WithMany(p => p.Carts)
+                    .HasForeignKey(d => d.SpId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("cart_SpID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Carts)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("cart_UsrID");
             });
 
             modelBuilder.Entity<Chitiethd>(entity =>

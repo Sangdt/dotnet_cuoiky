@@ -23,7 +23,7 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
             bool success = false;
             int retryCount = 0;
             MySqlException exception = null ;
-            while (!success&& retryCount<=15)
+            while (!success&& retryCount<=20)
             {
                 try
                 {
@@ -41,7 +41,7 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
                     Thread.Sleep(800);
                 }
             }
-            if(retryCount>=15)
+            if(retryCount>=20)
             {
                 throw exception;
             }
