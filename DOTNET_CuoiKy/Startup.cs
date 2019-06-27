@@ -31,27 +31,24 @@ namespace DOTNET_CuoiKy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Luôn Luôn để trước session config
-            services.AddAuthentication(o =>
-            {
-                o.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-                    .AddCookie(options =>
-                    {
-                        options.LoginPath = "/Login/";
-
-                    }).AddCookie("Admin", o =>
-                    {
-                        o.LoginPath = "/Admin/Authentication/";
-                    });
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            //Luôn Luôn để trước session config
+            services.AddAuthentication(o =>{
+                o.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>{
+                options.LoginPath = "/Login/";
+                options.ExpireTimeSpan = TimeSpan.FromHours(2);
+            }).AddCookie("Admin", o =>{
+                o.ExpireTimeSpan = TimeSpan.FromHours(5);
+                o.LoginPath = "/Admin/Authentication/";
+            });
             services.AddDbContext<comdatabaseContext>(options => options.UseMySQL(connectionString));
             //Luôn Luôn để sau cookies config
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromHours(5);//You can set Time   
             });
-
+            services.AddDistributedMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -73,6 +70,7 @@ namespace DOTNET_CuoiKy
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

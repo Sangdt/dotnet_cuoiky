@@ -5,149 +5,16 @@
 
 
 @{
-    ViewData["Title"] = "Chitiets";
+    ViewData["Title"] = "Chi tiết sản phẩm";
 }
 
-<h1>Chi tiết về thức ăn, nước uống </h1>
-<section class="blog_area section_padding_0_80">
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            @** <div class="col-12 col-lg-8">
-                <div class="row">*@
-
-            <div style="margin-left:500px" class="col-lg-12">
-
-                <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
-                    @foreach (var item in Model)
-                    {
-
-                        <div class="preview col-md-4">
-
-                            <div class="preview-pic tab-content">
-                                <div class="tab-pane active" id="pic-1"><img src="~/@item.Hinh1" /></div>
-                                <div class="tab-pane" id="pic-2"><img src="~/@item.Hinh2" /></div>
-                                <div class="tab-pane" id="pic-3"><img src="~/@item.Hinh3" /></div>
-                                <div class="tab-pane" id="pic-4"><img src="~/@item.Hinh4" /></div>
-
-                            </div>
-
-                            <ul class="preview-thumbnail nav nav-tabs">
-
-                                <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="~/@item.Hinh1" /></a></li>
-                                <li><a data-target="#pic-2" data-toggle="tab"><img src="~/@item.Hinh2" /></a></li>
-                                <li><a data-target="#pic-3" data-toggle="tab"><img src="~/@item.Hinh3" /></a></li>
-
-                                <li><a data-target="#pic-4" data-toggle="tab"><img src="~/@item.Hinh4" /></a></li>
-
-
-                            </ul>
-
-                        </div>
-                        <div class="details col-md-8">
-                            <h3 class="product-title">@item.TenSp</h3>
-                            <div class="rating">
-                                <div class="stars">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                                <span class="review-no">41 reviews</span>
-                            </div>
-                            <p>@item.MoTa</p>
-                            <h4 style="text-align:unset !important" class="price">Giá: <span>@item.GiaSp</span></h4>
-
-
-                            <div class="action">
-                                <button class="add-to-cart btn btn-default" type="button">Đặt hàng</button>
-                                <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-                            </div>
-                        </div>
-
-                    }
-
-                    @*@foreach (var item in Model)
-                        {
-                            <div class="post-thumb">
-                                <img src="~/@item.Hinh1" alt="">
-
-                            </div>
-
-                            <div class="post-content">
-                                <div class="post-meta d-flex">
-                                    <div class="post-author-date-area d-flex">
-                                        <!-- Post Author -->
-                                        <div class="post-author">
-                                            <a href="#">By Marian</a>
-                                        </div>
-                                        <!-- Post Date -->
-                                        <div class="post-date">
-                                            <a href="#">May 19, 2017</a>
-                                        </div>
-                                    </div>
-                                    <!-- Post Comment & Share Area -->
-                                    <div class="post-comment-share-area d-flex">
-                                        <!-- Post Favourite -->
-                                        <div class="post-favourite">
-                                            <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
-                                        </div>
-                                        <!-- Post Comments -->
-                                        <div class="post-comments">
-                                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-                                        </div>
-                                        <!-- Post Share -->
-                                        <div class="post-share">
-                                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#">
-                                    <h4 class="post-headline">@item.TenSp</h4>
-                                </a>
-                                <p>@item.MoTa</p>
-                                <div class="post-meta d-flex">
-                                    <div class="post-author-date-area d-flex">
-                                        <!-- Post Author -->
-                                        <div class="post-author" style="color:red">
-
-                                            @item.GiaSp
-                                        </div>
-                                    </div>
-                                    <!-- Post Comment & Share Area -->
-                                </div>
-
-                            </div>*@
-
-
-
-
-                    @*<div class="post-thumb">
-                            <img src="~/@item.Hinh2" alt="">
-                        </div>
-                        <div class="post-thumb">
-                            <img src="~/@item.Hinh3" alt="">
-                        </div>
-                        <div class="post-thumb">
-                            <img src="~/@item.Hinh4" alt="">
-                        </div>*@
-
-                    <!-- Post Thumb -->
-                    <!-- Post Content -->
-
-                </div>
-            </div>
-        </div>
-    </div>
-    .
-
-
-
-
-</section>
 @section SanphamDetailStyle{
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/popper.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <style>
         body {
             font-family: 'open sans';
@@ -378,3 +245,172 @@
         /*# sourceMappingURL=style.css.map */
     </style>
 }
+
+@section addConfirmModal{
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalLabel">Thông báo</h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="update-message">
+                    <div id="Mbd">
+                        Nhập số lượng cho <span id="SanphamtoAdd"></span> : <br />
+                        <input id="spQuantity" type="number" name="quantity" value="1" min="1" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info addConfirm">
+                        Thêm vào giỏ
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section addToCartScripts {
+    <script type="text/javascript">
+        $("#pattern-switcher").on('click', function () {
+            $("body").toggleClass("bg-pattern");
+        });
+        $("#patter-close").on('click', function () {
+            $(this).hide("slow");
+            $("#pattern-switcher").addClass("pattern-remove");
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            var addspSuccess = false;
+            $('#flipFlop').on('hidden.bs.modal', function (e) {
+                if (addspSuccess) {
+                    window.location.href="/cart";
+                } else {
+                    console.log("Hidden")
+                    //Clean old id to make sure shit wont break  !!!!!
+                    $('#Mbd').show();
+                    $('#SanphamtoAdd').text(null);
+                    $('#spQuantity').val(1);
+                    var confirmBnt = document.getElementsByClassName("addConfirm")[0];
+                    confirmBnt.id = "";
+                    confirmBnt.style = "";
+                }
+            })
+
+
+            $('.add-to-cart').click(function () {
+                var addBnt = document.getElementsByClassName("addConfirm")[0];
+                var itemName = $(this).attr("data-id").toLocaleUpperCase();
+                addBnt.id = $(this).attr("id");
+                $('#SanphamtoAdd').text(itemName);
+                $('#flipFlop').modal('show');
+            })
+            $('.addConfirm').click(function () {
+                //var $this = ;
+                $(this).prop('disabled', true);
+                $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`);
+                var itemID = $(this).attr("id");
+                var itemQuantity = $('#spQuantity').val();
+                var form = $('#__AjaxAntiForgeryForm');
+                var token = $('input[name="__RequestVerificationToken"]', form).val();
+                if (itemID != '') {
+                    var model = JSON.stringify({ id: itemID, quantity: itemQuantity });
+                    $.ajax("/Cart/AddtoCart", {
+                        type: "post",
+                        data: model,
+                        contentType: "application/json",
+                        headers: {
+                            'RequestVerificationToken': token
+                        }
+                    }).done(function (data) {
+                        $('#Mbd').hide();
+                        $('.addConfirm').html(`<i class="fa fa-check" aria-hidden="true"></i>`);
+                        $('#update-message').text(data)
+                        addspSuccess = true;
+                        console.log(data);
+                    }).fail(function (data) {
+                        console.log(data);
+                    })
+                }
+
+                //$(this).hide();
+                console.log('id to add ' + itemID + ' quantity ', itemQuantity);
+            })
+        });
+    </script>
+}
+<h1>Chi tiết về thức ăn, nước uống </h1>
+<section class="blog_area section_padding_0_80">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            @** <div class="col-12 col-lg-8">
+                <div class="row">
+            *@
+
+            <div class="col-lg-12">
+
+                <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="preview col-md-4">
+
+                            <div class="preview-pic tab-content">
+                                <div class="tab-pane active" id="pic-1"><img src="~/@item.Hinh1" /></div>
+                                <div class="tab-pane" id="pic-2"><img src="~/@item.Hinh2" /></div>
+                                <div class="tab-pane" id="pic-3"><img src="~/@item.Hinh3" /></div>
+                                <div class="tab-pane" id="pic-4"><img src="~/@item.Hinh4" /></div>
+
+                            </div>
+
+                            <ul class="preview-thumbnail nav nav-tabs">
+
+                                <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="~/@item.Hinh1" /></a></li>
+                                <li><a data-target="#pic-2" data-toggle="tab"><img src="~/@item.Hinh2" /></a></li>
+                                <li><a data-target="#pic-3" data-toggle="tab"><img src="~/@item.Hinh3" /></a></li>
+
+                                <li><a data-target="#pic-4" data-toggle="tab"><img src="~/@item.Hinh4" /></a></li>
+
+
+                            </ul>
+
+                        </div>
+                        <div class="details col-md-8">
+                            <h3 class="product-title">@item.TenSp</h3>
+                            <div class="rating">
+                                <div class="stars">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                <span class="review-no">41 reviews</span>
+                            </div>
+                            <p>@item.MoTa</p>
+                            <h4 style="text-align:unset !important" class="price">Giá: <span>@item.GiaSp</span></h4>
+
+
+                            <div class="action">
+                                <a data-id="@item.TenSp" id="@item.IdsanPham" class="add-to-cart btn btn-default">Đặt hàng</a>
+                                <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

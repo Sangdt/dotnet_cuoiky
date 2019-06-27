@@ -7,7 +7,6 @@ namespace DOTNET_CuoiKy.Models.DB
     {
         public Khachhang()
         {
-            Carts = new HashSet<Carts>();
             Hoadon = new HashSet<Hoadon>();
         }
 
@@ -18,7 +17,6 @@ namespace DOTNET_CuoiKy.Models.DB
         public string Address { get; set; }
         public int SoDiethoai { get; set; }
 
-        public virtual ICollection<Carts> Carts { get; set; }
         public virtual ICollection<Hoadon> Hoadon { get; set; }
     }
 }

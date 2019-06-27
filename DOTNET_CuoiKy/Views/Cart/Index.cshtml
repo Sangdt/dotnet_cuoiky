@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DOTNET_CuoiKy.Models.DB.Carts>
+
+@{
+    ViewData["Title"] = "Giỏ hàng của bẹn";
+    float total = 0;
+}
+@section cartBootstrap{
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/popper.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+      $("#pattern-switcher").on('click', function () {
+        $("body").toggleClass("bg-pattern");
+    });
+    $("#patter-close").on('click', function () {
+        $(this).hide("slow");
+        $("#pattern-switcher").addClass("pattern-remove");
+    });
+</script>
+}
+<div class="container-fluid">
+    <h2>Giỏ hàng của bạn</h2>
+
+    @{ if (Model == null)
+        {
+            <div class="text-lg-center">
+                <h1>Giỏ hàng của bạn đang trống, mua gì đi chứ bồ</h1>
+                <a asp-action="Index" asp-controller="home" class="btn btn-warning">Bấm vào đây để mua đồ nè</a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive-sm">
+                <table id="cart" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th class="text-center">Tổng tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            float? subtotal = item.Sp.GiaSp.Value * item.Quantity;
+                            total = total + subtotal.Value;
+
+                            <tr id="@item.AutoId">
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-sm-2 d-none d-sm-block"><img src="~/@item.Sp.Hinh1" alt="..." class="img-responsive" /></div>
+                                        <div class="col-sm-10">
+                                            <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@item.Sp.IdsanPham">
+                                                <h4 class="nomargin">@item.Sp.TenSp</h4>
+                                            </a>
+                                            <p>@item.Sp.MoTa</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Price">@string.Format("{0:C}", item.Sp.GiaSp)</td>
+                                <td data-th="Quantity">
+                                    <input type="number" class="form-control text-center" value="@item.Quantity" style="color:none !important">
+                                </td>
+                                <td data-th="Subtotal" class="text-center">@string.Format("{0:C}", subtotal)</td>
+                                <td class="actions" data-th="">
+                                    <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+
+                        <tr>
+                            <td><a asp-action="Index" asp-controller="home" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua đồ chứ nhỉ</a></td>
+                            <td colspan="2" class="hidden-xs"></td>
+                            <td class="hidden-xs text-center"><strong>Tổng cộng @string.Format("{0:C}", total)</strong></td>
+                            <td><a href="" class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        }
+    }
+</div>

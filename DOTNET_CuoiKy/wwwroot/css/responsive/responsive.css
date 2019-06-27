@@ -64,7 +64,7 @@
         margin-left: 15px;
     }
     .navbar-toggler {
-        background-color: #fc6c3f;
+        background-color: #fc6c3f !important;
         width: 100%;
         color: #fff;
         margin-bottom: 30px;

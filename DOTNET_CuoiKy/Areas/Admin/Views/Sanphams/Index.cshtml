@@ -63,9 +63,8 @@
             $(".deleteShit").click(function () {
                 var confirmBnt = document.getElementsByClassName("deleteConfirm")[0];
                 var itemName = $(this).attr("data-id").toLocaleUpperCase();
-                var idItem = $(this).attr("id");
                 // Set id to confirm modal button so we can delete more ez
-                confirmBnt.id = idItem;
+                confirmBnt.id = $(this).attr("id");;
                 $('#update-message').text("Bạn có chắc muốn xóa sản phẩm " + itemName);
                 $('#flipFlop').modal('show');
             });

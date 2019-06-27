@@ -74,12 +74,8 @@
 
 .form-control {
     background: transparent !important;
-    color: white !important;
+    /*color: white !important;*/
     font-size: 18px !important;
-}
-
-h1 {
-    color: white !important;
 }
 
 h4 {

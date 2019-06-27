@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DOTNET_CuoiKy.Models.DB
 {
@@ -64,14 +65,19 @@ namespace DOTNET_CuoiKy.Models.DB
                 entity.HasIndex(e => e.SpId)
                     .HasName("cart_SpID_idx");
 
-                entity.HasIndex(e => e.UserId)
-                    .HasName("cart_UsrID_idx");
-
                 entity.Property(e => e.AutoId)
                     .HasColumnName("autoID")
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .ValueGeneratedNever();
+                    //.HasConversion(new BoolToZeroOneConverter<Int16>());
+
+
+                entity.Property(e => e.CartId)
+                    .IsRequired()
+                    .HasColumnName("cartID")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Quantity)
                     .HasColumnName("quantity")
@@ -86,21 +92,11 @@ namespace DOTNET_CuoiKy.Models.DB
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserId)
-                    .HasColumnName("userID")
-                    .HasColumnType("int(11)");
-
                 entity.HasOne(d => d.Sp)
                     .WithMany(p => p.Carts)
                     .HasForeignKey(d => d.SpId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("cart_SpID");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Carts)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("cart_UsrID");
             });
 
             modelBuilder.Entity<Chitiethd>(entity =>
