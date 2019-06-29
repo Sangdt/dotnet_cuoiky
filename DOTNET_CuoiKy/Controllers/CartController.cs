@@ -16,7 +16,7 @@ namespace DOTNET_CuoiKy.Controllers
     public class CartController : Controller
     {
         comdatabaseContext _context;
-        private string ShoppingCartId { get; set; }
+        private static string ShoppingCartId { get; set; }
         private const string CartSessionKey = "CartId";
 
         public CartController(comdatabaseContext context)
@@ -28,6 +28,8 @@ namespace DOTNET_CuoiKy.Controllers
         [Breadcrumb("Giỏ hàng")]
         public IActionResult Index()
         {
+            var ssID = HttpContext.Session.GetString(CartSessionKey);
+            ShoppingCartId = ssID != null ? ssID : GetCartId();
             return View(GetCartitems());
         }
 
@@ -101,7 +103,7 @@ namespace DOTNET_CuoiKy.Controllers
                 {
                     //var itemToRM = cartItems.FirstOrDefault(items => items.AutoId.Equals(model.id));
 
-                    var itemIndex = cartItems.FindIndex(sp => sp.AutoId.Equals(model.id.Trim()));
+                    var itemIndex = cartItems.FindIndex(sp => sp.AutoId.Equals(model.id.Trim()) && sp.CartId.Equals(ShoppingCartId));
                     cartItems[itemIndex].Quantity = model.quantity;
                     HttpContext.Session.SetObjectAsJson(GetCartId(), cartItems);
                     return Ok("Cap nhat r nha bo");
@@ -109,7 +111,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             else
             {
-                var items = _context.Carts.FirstOrDefault(sp => sp.AutoId.Equals(model.id));
+                var items = _context.Carts.FirstOrDefault(sp => sp.AutoId.Equals(model.id)&& sp.CartId.Equals(GetCartId()));
                 if (items != null)
                 {
                     items.Quantity = model.quantity;
@@ -120,6 +122,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return NotFound("Broo what are u doingg");
         }
+
 
         private bool Additems(addCartView addInfo)
         {
@@ -232,7 +235,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             else if (HttpContext.User.Identity.IsAuthenticated && HttpContext.Session.GetString(CartSessionKey) != null)
             {
-                HttpContext.Session.SetString(CartSessionKey, HttpContext.User.Claims.FirstOrDefault(n => n.Type == ClaimTypes.Sid).Value);
+                HttpContext.Session.SetString(CartSessionKey, HttpContext.User.Claims.FirstOrDefault(n => n.Type == ClaimTypes.NameIdentifier).Value);
             }
             return HttpContext.Session.GetString(CartSessionKey);
         }

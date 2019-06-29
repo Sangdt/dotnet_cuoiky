@@ -11,12 +11,15 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using DOTNET_CuoiKy.Models;
+using Microsoft.AspNetCore.Http;
+using DOTNET_CuoiKy.Helper;
 
 namespace DOTNET_CuoiKy.Controllers
 {
     public class LoginController : Controller
     {
         private readonly comdatabaseContext _context;
+        private const string CartSessionKey = "CartId";
 
         public LoginController(comdatabaseContext context)
         {
@@ -27,7 +30,8 @@ namespace DOTNET_CuoiKy.Controllers
             var kh = _context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName) || n.NameKh.Equals(model.userName));
             if (kh!=null)
             {
-                if(kh.Password.Equals(model.passWord))
+                var pass = PasswordCrypt.CreateMD5(model.passWord);
+                if(kh.Password.Equals(pass))
                     return kh;
                 else
                 {
@@ -63,7 +67,39 @@ namespace DOTNET_CuoiKy.Controllers
                     ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
 
-                    await HttpContext.SignInAsync(principal);
+                    var oldCartID = HttpContext.Session.GetString(CartSessionKey);
+                    var cartList = oldCartID!=null ? HttpContext.Session.GetObjectFromJson<List<Carts>>(oldCartID) : new List<Carts>();
+                    List<Carts> lstToadd = new List<Carts>();
+                    if (cartList != null||cartList.Count()>0)
+                    {
+                        foreach(var item in cartList)
+                        {
+                            var add = true;
+                            item.Sp = null;
+                            item.CartId = kh.IdKhachHang.ToString();
+                            var spExisted = _context.Carts.FirstOrDefault(sp => sp.SpId == item.SpId && sp.CartId.Equals(item.CartId));
+                            // if user carts already exist we just want to update quanity instead adding new
+                            // just exclude it out of the things to add
+                            if (spExisted != null)
+                            {
+                                spExisted.Quantity += item.Quantity;
+                                _context.Carts.Update(spExisted);
+                                add = false;
+                            }
+                            if (add)
+                            {
+                                lstToadd.Add(item);
+                            }
+                        }
+                        await _context.Carts.AddRangeAsync(lstToadd);
+                    }
+
+                    await _context.SaveChangesAsync();
+                    //make sure shit in session is clean af so we can go on with items from db
+                    HttpContext.Session.SetObjectAsJson(oldCartID, null);
+                    HttpContext.Session.SetString(CartSessionKey, kh.IdKhachHang.ToString());
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
                     return Redirect("/");
                 }
                 else
@@ -117,7 +153,8 @@ namespace DOTNET_CuoiKy.Controllers
         [HttpGet("/logout")]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
+            HttpContext.Session.SetString(CartSessionKey,"");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Login");
         }
     }

@@ -36,11 +36,17 @@
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/popper.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+        //var clicked = false;
+        function showcheckOut() {
+            console.log('clicked');
+            var display = document.getElementsByClassName('checkOutForm')[0];
+            display.style.display = display.style.display === "none" ? "block" : "none";
+        }
         $(function () {
             var deleteConfirm = false;
-               $('#flipFlop').on('hidden.bs.modal', function (e) {
-                   if (deleteConfirm) {
-                       window.location.reload(true);
+            $('#flipFlop').on('hidden.bs.modal', function (e) {
+                if (deleteConfirm) {
+                    window.location.reload(true);
                 } else {
                     console.log("Hidden")
                     //Clean old id to make sure shit wont break  !!!!!
@@ -103,7 +109,11 @@
 
 
         });
-    </script>
+
+        $(".checkouBnt").click(function() {
+           $('html,body').animate({scrollTop: $(".checkOutForm").offset().top},'slow');
+        });
+/**/</script>
 }
 <div class="container-fluid">
     <h2>Giỏ hàng của bạn</h2>
@@ -118,7 +128,6 @@
         }
         else
         {
-            @*<div class="table-responsive-sm">*@
             <table class="table table-hover">
                 <thead>
                     <tr></tr>
@@ -166,11 +175,88 @@
                         <td><a asp-action="Index" asp-controller="home" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua đồ chứ nhỉ</a></td>
                         <td colspan="2" class="hidden-xs"></td>
                         <td class="hidden-xs text-center"><strong>Tổng cộng @string.Format("{0:C}", total)</strong></td>
-                        <td><a href="" class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a></td>
+                        <td><button type="button" class="checkouBnt btn btn-success btn-block" onclick="showcheckOut()">Thanh toán <i class="fa fa-angle-right"></i></button></td>
                     </tr>
                 </tfoot>
             </table>
-            @*</div>*@
+            if (User.Identity.IsAuthenticated)
+            {
+                <div style="display:none" class="checkOutForm container ">
+                    <h2 class="text-center">Thông tin giao hàng</h2>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-8 col-lg-6 pb-5">
+
+                            <!--Form with header-->
+
+                            <form  method="post">
+                                <div class="card border-primary rounded-0">
+                                    <div class="card-header p-0">
+                                        <div class="bg-info text-white text-center py-2">
+                                            <h3><i class="fa fa-envelope"></i> Điền thông tin Giao hàng vào đây</h3>
+                                            <p class="m-0"></p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-3">
+
+                                        <!--Body-->
+                                        <div class="form-group">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        Tên của bạn <i class="fa fa-user text-info"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre y Apellido" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Email <i class="fa fa-envelope text-info"></i></div>
+                                                </div>
+                                                <input type="email" class="form-control" id="nombre" name="email" placeholder="ejemplo@gmail.com" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Số điện thoại <i class="fa fa-phone text-info"></i></div>
+                                                </div>
+                                                <input type="number" class="form-control" id="nombre" name="email" placeholder="ejemplo@gmail.com" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Địa chỉ  <i class="fa fa-address-book text-info"></i></div>
+                                                </div>
+                                                <input type="text" class="form-control" id="nombre" name="email" placeholder="ejemplo@gmail.com" required>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <input type="submit" value="Lưu thông tin" class="btn btn-info btn-block rounded-0 py-2">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div style="display:none" class="checkOutForm fade-in float-right">
+                    <h3>Bạn chưa đăng nhập!!</h3>
+                    <a class="btn btn-warning" asp-action="Login" asp-controller="Login">Bấm vào đây để đăng nhập</a>
+                    <br />
+                    <h3>Chưa có tài khỏa ?</h3>
+                    <a class="btn btn-warning" asp-action="Register" asp-controller="Login">Bấm vào đây để đăng ký</a>
+
+                </div>
+            }
         }
     }
 </div>

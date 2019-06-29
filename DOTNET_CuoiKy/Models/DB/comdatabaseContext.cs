@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DOTNET_CuoiKy.Models.DB
 {
@@ -70,8 +69,6 @@ namespace DOTNET_CuoiKy.Models.DB
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .ValueGeneratedNever();
-                    //.HasConversion(new BoolToZeroOneConverter<Int16>());
-
 
                 entity.Property(e => e.CartId)
                     .IsRequired()
