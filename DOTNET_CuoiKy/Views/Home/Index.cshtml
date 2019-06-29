@@ -2,21 +2,15 @@
     ViewData["Title"] = "Home Page";
 }
 @section sanphamloader{
-    <script defer="defer" src="~/js/jquery/jquery-2.2.4.min.js"></script>
-    <script defer="defer" src="~/js/others/plugins.js"></script>
-    <script defer="defer" src="~/js/bootstrap/popper.min.js"></script>
-    <script defer="defer" src="~/js/bootstrap/bootstrap.min.js"></script>
-    <script defer="defer" src="~/js/active.js"></script>
-    <script type="text/javascript">
-        $("#pattern-switcher").on('click', function () {
-            $("body").toggleClass("bg-pattern");
-        });
-        $("#patter-close").on('click', function () {
-            $(this).hide("slow");
-            $("#pattern-switcher").addClass("pattern-remove");
-        });
-
-    </script>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    <script src="~/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="~/js/others/plugins.js"></script>
+    <script src="~/js/bootstrap/popper.min.js"></script>
+    <script src="~/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/js/active.js"></script>
 }
 @await Component.InvokeAsync(nameof(SanphamHotLoader).Replace("ViewComponent", ""))
 @await Component.InvokeAsync(nameof(DanhMucloader).Replace("ViewComponent", ""))

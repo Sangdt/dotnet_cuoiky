@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IEnumerable<DOTNET_CuoiKy.Models.DB.Sanpham>
+@model DOTNET_CuoiKy.Models.DB.Sanpham
 
 
 @{
@@ -9,9 +9,7 @@
 }
 
 @section SanphamDetailStyle{
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/popper.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -279,22 +277,13 @@
 }
 
 @section addToCartScripts {
-    <script type="text/javascript">
-        $("#pattern-switcher").on('click', function () {
-            $("body").toggleClass("bg-pattern");
-        });
-        $("#patter-close").on('click', function () {
-            $(this).hide("slow");
-            $("#pattern-switcher").addClass("pattern-remove");
-        });
-
-    </script>
+    
     <script type="text/javascript">
         $(function () {
             var addspSuccess = false;
             $('#flipFlop').on('hidden.bs.modal', function (e) {
                 if (addspSuccess) {
-                    window.location.href="/cart";
+                    window.location.href="/";
                 } else {
                     console.log("Hidden")
                     //Clean old id to make sure shit wont break  !!!!!
@@ -360,33 +349,24 @@
             <div class="col-lg-12">
 
                 <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
-                    @foreach (var item in Model)
-                    {
 
                         <div class="preview col-md-4">
-
                             <div class="preview-pic tab-content">
-                                <div class="tab-pane active" id="pic-1"><img src="~/@item.Hinh1" /></div>
-                                <div class="tab-pane" id="pic-2"><img src="~/@item.Hinh2" /></div>
-                                <div class="tab-pane" id="pic-3"><img src="~/@item.Hinh3" /></div>
-                                <div class="tab-pane" id="pic-4"><img src="~/@item.Hinh4" /></div>
-
+                                <div class="tab-pane active" id="pic-1"><img src="~/@Model.Hinh1" /></div>
+                                <div class="tab-pane" id="pic-2"><img src="~/@Model.Hinh2" /></div>
+                                <div class="tab-pane" id="pic-3"><img src="~/@Model.Hinh3" /></div>
+                                <div class="tab-pane" id="pic-4"><img src="~/@Model.Hinh4" /></div>
                             </div>
 
                             <ul class="preview-thumbnail nav nav-tabs">
-
-                                <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="~/@item.Hinh1" /></a></li>
-                                <li><a data-target="#pic-2" data-toggle="tab"><img src="~/@item.Hinh2" /></a></li>
-                                <li><a data-target="#pic-3" data-toggle="tab"><img src="~/@item.Hinh3" /></a></li>
-
-                                <li><a data-target="#pic-4" data-toggle="tab"><img src="~/@item.Hinh4" /></a></li>
-
-
+                                <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="~/@Model.Hinh1" /></a></li>
+                                <li><a data-target="#pic-2" data-toggle="tab"><img src="~/@Model.Hinh2" /></a></li>
+                                <li><a data-target="#pic-3" data-toggle="tab"><img src="~/@Model.Hinh3" /></a></li>
+                                <li><a data-target="#pic-4" data-toggle="tab"><img src="~/@Model.Hinh4" /></a></li>
                             </ul>
-
                         </div>
                         <div class="details col-md-8">
-                            <h3 class="product-title">@item.TenSp</h3>
+                            <h3 class="product-title">@Model.TenSp</h3>
                             <div class="rating">
                                 <div class="stars">
                                     <span class="fa fa-star checked"></span>
@@ -397,12 +377,12 @@
                                 </div>
                                 <span class="review-no">41 reviews</span>
                             </div>
-                            <p>@item.MoTa</p>
-                            <h4 style="text-align:unset !important" class="price">Giá: <span>@item.GiaSp</span></h4>
+                            <p>@Model.MoTa</p>
+                            <h4 style="text-align:unset !important" class="price">Giá: <span>@Model.GiaSp</span></h4>
 
 
                             <div class="action">
-                                <a data-id="@item.TenSp" id="@item.IdsanPham" class="add-to-cart btn btn-default">Đặt hàng</a>
+                                <a data-id="@Model.TenSp" id="@Model.IdsanPham" class="add-to-cart btn btn-default">Đặt hàng</a>
                                 <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
                             </div>
                         </div>

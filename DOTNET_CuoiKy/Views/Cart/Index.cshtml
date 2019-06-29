@@ -5,24 +5,111 @@
     float total = 0;
 }
 @section cartBootstrap{
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalLabel">Thông báo</h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="update-message">
+                    Bạn có chắc muốn xóa <span id="Sanphamtodel"></span> <br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger delConfirm">
+                        XÓA SẢN PHẨM NÀY
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/popper.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-      $("#pattern-switcher").on('click', function () {
-        $("body").toggleClass("bg-pattern");
-    });
-    $("#patter-close").on('click', function () {
-        $(this).hide("slow");
-        $("#pattern-switcher").addClass("pattern-remove");
-    });
-</script>
+    <script type="text/javascript">
+        $(function () {
+            var deleteConfirm = false;
+               $('#flipFlop').on('hidden.bs.modal', function (e) {
+                   if (deleteConfirm) {
+                       window.location.reload(true);
+                } else {
+                    console.log("Hidden")
+                    //Clean old id to make sure shit wont break  !!!!!
+                    $('#Sanphamtodel').text(null);
+                    var confirmBnt = document.getElementsByClassName("delConfirm")[0];
+                    confirmBnt.id = "";
+                    confirmBnt.style = "";
+                }
+            })
+
+            $('.updateBNT').on('click', function () {
+                var itemID = $(this).attr("id");
+                var spQuantity = $("input[name=" + itemID + "]").val();
+                console.log('quantity', spQuantity)
+                var form = $('#__AjaxAntiForgeryForm');
+                var token = $('input[name="__RequestVerificationToken"]', form).val();
+                if (itemID != '') {
+                    var model = JSON.stringify({ id: itemID, quantity: spQuantity });
+                    $.ajax("/Cart/Update", {
+                        type: "post",
+                        data: model,
+                        contentType: "application/json",
+                        headers: {
+                            'RequestVerificationToken': token
+                        }
+                    }).done(function (data) {
+                        console.log(data)
+                        window.location.reload(true);
+                    }).fail(function (data) {
+                        console.log(data);
+                    })
+                }
+            })
+            $('.deleteBNT').on('click', function () {
+                var delBnt = document.getElementsByClassName("delConfirm")[0];
+                delBnt.id = $(this).attr("id");
+                $('#Sanphamtodel').text($(this).attr("data-id"));
+                $('#flipFlop').modal('show');
+            })
+
+            $('.delConfirm').on('click', function () {
+                var itemID = $(this).attr("id");
+                $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`);
+                $(this).prop('disabled', true);
+                console.log('id', itemID);
+                var form = $('#__AjaxAntiForgeryForm');
+                var token = $('input[name="__RequestVerificationToken"]', form).val();
+                if (itemID != '') {
+                    $.post("/Cart/Delete", { __RequestVerificationToken: token, "itemId": itemID },
+                        function (data) {
+                            deleteConfirm = true;
+                            $('.delConfirm').html(`<i class="fa fa-check" aria-hidden="true"></i>`);
+                            $('#update-message').text(data);
+                        }).fail(function (data) {
+                            //console.log('server response', JSON.stringify(data.responseText))
+                            $('#update-message').text(data);
+                        })
+                }
+            });
+
+
+        });
+    </script>
 }
 <div class="container-fluid">
     <h2>Giỏ hàng của bạn</h2>
+    <h4 class="cartNoti">kéo quan bên trái để xem thông tin</h4>
 
-    @{ if (Model == null)
+    @{ if (Model == null || Model.Count() <= 0)
         {
             <div class="text-lg-center">
                 <h1>Giỏ hàng của bạn đang trống, mua gì đi chứ bồ</h1>
@@ -31,58 +118,59 @@
         }
         else
         {
-            <div class="table-responsive-sm">
-                <table id="cart" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th class="text-center">Tổng tiền</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            float? subtotal = item.Sp.GiaSp.Value * item.Quantity;
-                            total = total + subtotal.Value;
+            @*<div class="table-responsive-sm">*@
+            <table class="table table-hover">
+                <thead>
+                    <tr></tr>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th class="text-center">Tổng tiền</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        float? subtotal = item.Sp.GiaSp.Value * item.Quantity;
+                        total = total + subtotal.Value;
 
-                            <tr id="@item.AutoId">
-                                <td data-th="Product">
-                                    <div class="row">
-                                        <div class="col-sm-2 d-none d-sm-block"><img src="~/@item.Sp.Hinh1" alt="..." class="img-responsive" /></div>
-                                        <div class="col-sm-10">
-                                            <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@item.Sp.IdsanPham">
-                                                <h4 class="nomargin">@item.Sp.TenSp</h4>
-                                            </a>
-                                            <p>@item.Sp.MoTa</p>
-                                        </div>
+                        <tr>
+                            <td data-th="Product">
+                                <div class="row">
+                                    <div class="col-sm-2 d-none d-sm-block"><img src="~/@item.Sp.Hinh1" alt="..." class="img-responsive" /></div>
+                                    <div class="col-sm-10">
+                                        <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@item.Sp.IdsanPham">
+                                            <h4 class="nomargin">@item.Sp.TenSp</h4>
+                                        </a>
+                                        <p>@item.Sp.MoTa</p>
                                     </div>
-                                </td>
-                                <td data-th="Price">@string.Format("{0:C}", item.Sp.GiaSp)</td>
-                                <td data-th="Quantity">
-                                    <input type="number" class="form-control text-center" value="@item.Quantity" style="color:none !important">
-                                </td>
-                                <td data-th="Subtotal" class="text-center">@string.Format("{0:C}", subtotal)</td>
-                                <td class="actions" data-th="">
-                                    <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-
-                        <tr>
-                            <td><a asp-action="Index" asp-controller="home" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua đồ chứ nhỉ</a></td>
-                            <td colspan="2" class="hidden-xs"></td>
-                            <td class="hidden-xs text-center"><strong>Tổng cộng @string.Format("{0:C}", total)</strong></td>
-                            <td><a href="" class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a></td>
+                                </div>
+                            </td>
+                            <td data-th="Price">@string.Format("{0:C}", item.Sp.GiaSp)</td>
+                            <td data-th="Quantity">
+                                <input name="@item.AutoId" type="number" class="form-control text-center" min="1" value="@item.Quantity" style="color:black !important;width: 50%;">
+                            </td>
+                            <td data-th="Subtotal" class="text-center">@string.Format("{0:C}", subtotal)</td>
+                            <td class="actions" data-th="">
+                                <a id="@item.AutoId" class="updateBNT btn btn-info btn-sm"><i class="fa fa-refresh"></i></a>
+                                <a data-id="@item.Sp.TenSp" id="@item.AutoId" class="deleteBNT btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                            </td>
                         </tr>
-                    </tfoot>
-                </table>
-            </div>
+                    }
+                </tbody>
+                <tfoot>
+
+                    <tr>
+                        <td><a asp-action="Index" asp-controller="home" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua đồ chứ nhỉ</a></td>
+                        <td colspan="2" class="hidden-xs"></td>
+                        <td class="hidden-xs text-center"><strong>Tổng cộng @string.Format("{0:C}", total)</strong></td>
+                        <td><a href="" class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a></td>
+                    </tr>
+                </tfoot>
+            </table>
+            @*</div>*@
         }
     }
 </div>

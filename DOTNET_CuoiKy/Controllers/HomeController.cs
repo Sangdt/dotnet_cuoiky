@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DOTNET_CuoiKy.Models.DB;
 using DOTNET_CuoiKy.Models;
+using SmartBreadcrumbs;
+using SmartBreadcrumbs.Nodes;
+using SmartBreadcrumbs.Attributes;
+using Microsoft.EntityFrameworkCore;
 
 namespace DOTNET_CuoiKy.Controllers
 {
@@ -17,33 +21,51 @@ namespace DOTNET_CuoiKy.Controllers
             db = context;
         }
 
+        [DefaultBreadcrumb("Trang chủ")]
         public IActionResult Index(string message)
         {
             ViewData["LoginMess"] = message;
             return View();
         }
 
-        [HttpGet("/sanphams/{idsp}")]
-        public IActionResult Chitiets(int idsp)
+        [HttpGet("/danhmucs/{dmID}")]
+        public IActionResult Danhmucs(int dmID)
         {
-            if (db.Sanpham.FirstOrDefault(n => n.IdsanPham == idsp) != null)
+            var dm = db.Danhmuc.FirstOrDefault(n => n.IddanhMuc == dmID);
+            if (dm != null)
             {
-                List<Sanpham> spLst = db.Sanpham.Where(n => n.IdsanPham == idsp).ToList();
+                List<Sanpham> spLst = db.Sanpham.Where(n => n.DanhMuc == dmID).ToList();
+                var categoryNode = new MvcBreadcrumbNode("DanhMucs", "Home", dm.TenDm.ToUpper());
+                ViewData["BreadcrumbNode"] = categoryNode;
+
                 return View(spLst);
             }
             return RedirectToAction("Error");
         }
 
-        [HttpGet("/danhmucs/{dmID}")]
-        public IActionResult Danhmucs(int dmID)
+        [HttpGet("/sanphams/{idsp}")]
+        public IActionResult Chitiets(int idsp)
         {
-            if(db.Danhmuc.FirstOrDefault(n => n.IddanhMuc == dmID) != null)
+            var sanpham = db.Sanpham.Include(dm=>dm.DanhMucNavigation).FirstOrDefault(n => n.IdsanPham == idsp);
+            if (sanpham != null)
             {
-                List<Sanpham> spLst = db.Sanpham.Where(n => n.DanhMuc == dmID).ToList();
-                return View(spLst);
+                // Manually create the nodes (assuming you used the attribute to create a Default node, otherwise create it manually too).
+                var categoryNode = new MvcBreadcrumbNode("DanhMucs", "Home",sanpham.DanhMucNavigation.TenDm.ToUpper())
+                {
+                    RouteValues= new { dmID = sanpham.DanhMuc.Value }
+                };
+                // When manually creating nodes, you have the option to use route values in case you need them.
+                var productNode = new MvcBreadcrumbNode( "Chitiets", "Home", sanpham.TenSp) {
+                    Parent = categoryNode
+                };
+
+                //List<Sanpham> spLst = db.Sanpham.Where(n => n.IdsanPham == idsp).ToList();
+                ViewData["BreadcrumbNode"] = productNode;
+                return View(sanpham);
             }
             return RedirectToAction("Error");
         }
+      
 
         public IActionResult Privacy()
         {

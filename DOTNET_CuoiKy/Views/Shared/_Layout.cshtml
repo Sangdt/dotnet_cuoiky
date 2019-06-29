@@ -10,24 +10,112 @@
     <title>@ViewData["Title"] - DOTNET_CuoiKy</title>
 
 
-    @*<link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css" />*@
+    @*
+        <link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css" />*@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.3/css/mdb.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
     <link rel="icon" href="~/images/core-img/favicon.ico">
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" type="text/css" href="~/css/responsive/responsive.css" />
     <!--Load style like a fucking pro-->
     @RenderSection("StyleLogin", required: false)
     @RenderSection("SanphamDetailStyle", required: false)
+
     <style>
+
+        .bc-icons-2 .breadcrumb-item + .breadcrumb-item::before {
+            content: none;
+        }
+
+        .bc-icons-2 .breadcrumb-item.active {
+            color: #455a64;
+        }
+
+        .cartNoti {
+            display: none;
+        }
+
         .topheader123123 {
             display: flex;
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
         }
+
+        ul.dropdown-cart {
+            min-width: 300px;
+        }
+
+            ul.dropdown-cart li .item {
+                display: block;
+                padding: 3px 10px;
+                margin: 3px 0;
+            }
+
+                ul.dropdown-cart li .item:hover {
+                    background-color: #f3f3f3;
+                }
+
+                ul.dropdown-cart li .item:after {
+                    visibility: hidden;
+                    display: block;
+                    font-size: 0;
+                    content: " ";
+                    clear: both;
+                    height: 0;
+                }
+
+            ul.dropdown-cart li .item-left {
+                float: left;
+            }
+
+                ul.dropdown-cart li .item-left img,
+                ul.dropdown-cart li .item-left span.item-info {
+                    float: left;
+                }
+
+                ul.dropdown-cart li .item-left span.item-info {
+                    margin-left: 10px;
+                }
+
+                    ul.dropdown-cart li .item-left span.item-info span {
+                        display: block;
+                    }
+
+            ul.dropdown-cart li .item-right {
+                float: right;
+            }
+
+                ul.dropdown-cart li .item-right button {
+                    margin-top: 14px;
+                }
+                .hm-gradient {
+    background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+}
     </style>
 </head>
-<body>
+<body  class="hm-gradient">
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div id="modal-contets" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button id="delConfirm" type="button" class="btn btn-danger">Xóa</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @RenderSection("addConfirmModal", required: false)
+
     <div class="container-fluid">
 
         <div id="pattern-switcher">
@@ -102,37 +190,37 @@
                     <div class="col-12">
                         <div class="logo_area text-center">
                             <a asp-action="Index" asp-controller="home" class="yummy-logo">Thức Ăn Văn Phòng</a>
-
-                            @*<a href="https://localhost:44380/Home" class="yummy-logo">Thức Ăn Văn Phòng</a>*@
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row cyan lighten-4">
                     <div class="col-12">
-                        <nav class="navbar navbar-expand-lg">
+                        <nav style="box-shadow:none !important;" class="navbar navbar-expand-lg">
                             <button id="navbarToggleBnt" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav" aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
                             <!-- Menu Area Start -->
                             <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
-                                <ul class="navbar-nav" id="yummy-nav">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" asp-action="Index" asp-controller="home">Trang chủ <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                        <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                            <a class="dropdown-item" href="index.html">Home</a>
-                                            <a class="dropdown-item" href="archive.html">Archive</a>
-                                            <a class="dropdown-item" href="single.html">Single Blog</a>
-                                            <a class="dropdown-item" href="static.html">Static Page</a>
-                                            <a class="dropdown-item" href="contact.html">Contact</a>
-                                        </div>
-                                    </li>
+                                <breadcrumb id="yummy-nav" ></breadcrumb>
 
+                                <ul class="navbar-nav" id="yummy-nav">
+
+                                    @{ if (Context.Request.Path.Value != "/Cart")
+                                        {
+                                            <li class="nav-item dropdown">
+                                                @await Component.InvokeAsync(nameof(CartLoader).Replace("ViewComponent", ""))
+                                            </li>
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                    <li class="nav-item">
+                                        <audio controls="controls" src="~/js/Chiec-Bung-Doi-Be-Thanh-Ngan.mp3" loop="loop"></audio>
+
+                                    </li>
                                 </ul>
                             </div>
-                            <audio style="margin-left:300px" controls="controls" height="100" width="100" src="~/js/Chiec-Bung-Doi-Be-Thanh-Ngan.mp3" loop="loop"></audio>
-
                         </nav>
                     </div>
                 </div>
@@ -141,14 +229,61 @@
 
         @RenderBody()
     </div>
-    @RenderSection("sanphamloader", required: false)
     @RenderSection("cartBootstrap", false)
+
+    @RenderSection("sanphamloader", required: false)
 
     @RenderSection("addToCartScripts", required: false)
 
+    <script defer="defer" type="text/javascript">
+        $("#pattern-switcher").on('click', function () {
+            $("body").toggleClass("bg-pattern");
+        });
+        $("#patter-close").on('click', function () {
+            $(this).hide("slow");
+            $("#pattern-switcher").addClass("pattern-remove");
+        });
+        $(function () {
+            var deleteSuccess = false;
+            $('#deleteModal').on('hidden.bs.modal', function (e) {
+                if (deleteSuccess) {
+                    window.location.reload();
+                } else {
+                    console.log("Hidden")
+                    //Clean old id to make sure shit wont break  !!!!!
+                    $('#modal-contets').text(null);
+                    $('#delConfirm').prop('data-id', "");
+                }
+            })
 
+            $('.deleteThingS').on('click', function () {
+                $('#delConfirm').attr("data-id", $(this).attr("id"));
+                $('#myModalLabel').text("Cảnh báo");
+                $('.modal').attr('style', ' background-color:#FF403A');
+                $('#modal-contets').text('Bạn có chắc muốn xóa ' + $(this).attr("data-id").toLocaleUpperCase());
+                $('#deleteModal').modal('show');
+            });
 
+            $('#delConfirm').on('click', function () {
+                $('#modal-contets').text("Đang gửi dữ liệu để xóa xin chờ....");
+                $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`);
+                var data = $(this).attr("data-id");
+                var form = $('#__AjaxAntiForgeryForm');
+                var token = $('input[name="__RequestVerificationToken"]', form).val();
+                console.log('lala', data)
 
+                $.post("/Cart/Delete", { __RequestVerificationToken: token, "itemId": data },
+                    function (data) {
+                        $('#delConfirm').html(`<i class="fa fa-check" aria-hidden="true"></i>`);
+                        $('#modal-contets').text(data);
+                        deleteSuccess = true;
+                    }).fail(function (data) {
+                        //console.log('server response', JSON.stringify(data.responseText))
+                        $('#update-message').text(data);
+                    })
+            });
+        })
+    </script>
 </body>
 
 </html>

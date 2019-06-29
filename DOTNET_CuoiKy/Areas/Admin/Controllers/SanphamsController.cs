@@ -160,25 +160,6 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
             return View(sanpham);
         }
 
-        // GET: admin/Sanphams/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var sanpham = await _context.Sanpham
-                .Include(s => s.DanhMucNavigation)
-                .FirstOrDefaultAsync(m => m.IdsanPham == id);
-            if (sanpham == null)
-            {
-                return NotFound();
-            }
-
-            return View(sanpham);
-        }
-
         // POST: admin/Sanphams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

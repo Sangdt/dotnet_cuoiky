@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DOTNET_CuoiKy.Models.DB.Carts>
+@{
+    var count = Model != null ? Model.Count().ToString() : "0";
+}
+
+<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+   aria-expanded="false">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>  Giỏ hàng của bạn (@count)<span class="caret"></span>
+</a>
+<ul class="dropdown-menu dropdown-cart" role="menu">
+    @{ if (Model != null&& Model.Count()>0)
+        {
+            foreach (var items in Model)
+            {
+                <li class="dropdown-item">
+                    <span class="item">
+                        <span class="item-left">
+                            <img style="max-height:50px; max-width:50px;" src="~/@items.Sp.Hinh2" alt="">
+                            <span class="item-info">
+                                <span>@items.Sp.TenSp</span>
+                                <span>@string.Format("{0:C}", items.Sp.GiaSp)</span>
+                            </span>
+                        </span> <span class="item-right">
+                            <a id="@items.AutoId" data-id="@items.Sp.TenSp" href="#" class=" deleteThingS btn btn-xs btn-danger float-right" data-toggle="tooltip" data-placement="right" title="Xóa @items.Sp.TenSp ra khỏi giỏ">x</a>
+                        </span>
+                    </span>
+                </li>
+            }
+            <li class="divider dropdown-item"></li>
+            <li class="dropdown-item">
+                <a class="text-center btn btn-warning" asp-action="Index" asp-controller="Cart">View Cart</a>
+            </li>
+        }
+        else
+        {
+            <li class="dropdown-item">
+                <h5>Giỏ hàng trống</h5>
+            </li>
+        }
+    }
+</ul>

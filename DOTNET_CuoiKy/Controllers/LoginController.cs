@@ -22,16 +22,19 @@ namespace DOTNET_CuoiKy.Controllers
         {
             _context = context;
         }
-        private bool checkUserinfo(LoginRegisterModel model)
+        private Khachhang checkUserinfo(LoginRegisterModel model)
         {
-            if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName)) != null || _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName)) != null)
+            var kh = _context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName) || n.NameKh.Equals(model.userName));
+            if (kh!=null)
             {
-                if (_context.Khachhang.FirstOrDefault(n => n.Password.Equals(model.passWord)) != null)
+                if(kh.Password.Equals(model.passWord))
+                    return kh;
+                else
                 {
-                    return true;
+                    return null;
                 }
             }
-            return false;
+            return null;
         }
 
         [HttpGet("/login")]
@@ -39,7 +42,7 @@ namespace DOTNET_CuoiKy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index","Home", new { message = "Đăng nhập rồi bạn ie" });
+                return RedirectToAction("Index", "Home", new { message = "Đăng nhập rồi bạn ie" });
             }
             return View();
         }
@@ -49,11 +52,13 @@ namespace DOTNET_CuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (checkUserinfo(Lmodel))
+                var kh = checkUserinfo(Lmodel);
+                if (kh!=null)
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name,Lmodel.userName)
+                        new Claim(ClaimTypes.Name, kh.NameKh!=null? kh.NameKh : kh.Email),
+                        new Claim(ClaimTypes.NameIdentifier, kh.IdKhachHang.ToString())
                     };
                     ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
@@ -69,7 +74,7 @@ namespace DOTNET_CuoiKy.Controllers
             return View();
         }
 
-        
+
         [HttpGet("/register")]
         public IActionResult Register()
         {
@@ -79,7 +84,7 @@ namespace DOTNET_CuoiKy.Controllers
         {
             if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName)) != null || _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName)) != null)
             {
-               return false;
+                return false;
             }
             return true;
         }
@@ -90,8 +95,8 @@ namespace DOTNET_CuoiKy.Controllers
             string password2 = PasswordCrypt.CreateMD5(registerModel.passWord);
             if (ModelState.IsValid)
             {
-               
-                if (checkUserinfosignup(registerModel)) 
+
+                if (checkUserinfosignup(registerModel))
                 {
                     Khachhang obj = new Khachhang();
                     obj.Email = registerModel.userName;

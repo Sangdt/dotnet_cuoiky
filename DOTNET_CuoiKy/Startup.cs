@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using DOTNET_CuoiKy.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using DOTNET_CuoiKy.Models.DB;
+using SmartBreadcrumbs.Extensions;
 
 namespace DOTNET_CuoiKy
 {
@@ -49,6 +50,15 @@ namespace DOTNET_CuoiKy
                 options.IdleTimeout = TimeSpan.FromHours(5);//You can set Time   
             });
             services.AddDistributedMemoryCache();
+            services.AddBreadcrumbs(GetType().Assembly, options =>
+            {
+                options.TagName = "div";
+                options.TagClasses = "bc-icons-2";
+                options.OlClasses = "breadcrumb cyan lighten-4";
+                options.LiClasses = "breadcrumb-item";
+                options.ActiveLiClasses = "breadcrumb-item active";
+                options.SeparatorElement = "<Li><i class='fa fa-angle-left mx-2' aria-hidden=true></i></li>";
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

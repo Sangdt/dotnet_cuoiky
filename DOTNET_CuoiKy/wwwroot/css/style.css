@@ -28,12 +28,11 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700|Quicksand:300,400,500,700|Shadows+Into+Light+Two');
 
 /* ***** Import CSS ***** */
-
+@import url();
 @import 'bootstrap/bootstrap.min.css';
 @import 'others/animate.css';
 @import 'others/magnific-popup.css';
 @import 'others/owl.carousel.min.css';
-@import 'others/font-awesome.min.css';
 @import 'others/pe-icon-7-stroke.css';
 
 /* --------------------

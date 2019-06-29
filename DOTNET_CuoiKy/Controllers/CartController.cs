@@ -9,6 +9,7 @@ using DOTNET_CuoiKy.Models.DB;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using SmartBreadcrumbs.Attributes;
 
 namespace DOTNET_CuoiKy.Controllers
 {
@@ -24,19 +25,18 @@ namespace DOTNET_CuoiKy.Controllers
             //cart = new ShoppingCart(this.HttpContext, _context);
         }
 
-
+        [Breadcrumb("Giỏ hàng")]
         public IActionResult Index()
         {
-           return View(GetCartitems());
+            return View(GetCartitems());
         }
-
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult AddtoCart([FromBody]addCartView model)
         {
             //var cart = ShoppingCart.GetCart(this.HttpContext);
-            
+
             if (Additems(model))
             {
                 return Ok("Đã thêm sản phẩm vào giỏ hàng cho bạn");
@@ -44,6 +44,82 @@ namespace DOTNET_CuoiKy.Controllers
             return NotFound("We fucked up");
         }
 
+        [HttpPost, ActionName("Delete")]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult DeleteItems(string itemID)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                var cartItems = HttpContext.Session.GetObjectFromJson<List<Carts>>(GetCartId());
+                if (cartItems != null)
+                {
+                    var itemToRM = cartItems.FirstOrDefault(items => items.AutoId.Equals(itemID));
+                    if (itemToRM != null)
+                    {
+                        cartItems.Remove(itemToRM);
+                        HttpContext.Session.SetObjectAsJson(GetCartId(), cartItems);
+                        return Ok("Đã xóa sản phẩm ra khỏi giỏ rồi nha");
+
+                    }
+                    return NotFound("Bro wtf did just send ?");
+                }
+                else
+                {
+                    return NotFound("Bro your cart is empty wtf ?");
+                }
+            }
+            else
+            {
+                var cartItems = _context.Carts.ToList(); ;
+                if (cartItems.Count() <= 0)
+                {
+                    return NotFound("Bro your cart is empty wtf ?");
+                }
+                else
+                {
+                    var itemToRM = cartItems.FirstOrDefault(items => items.AutoId.Equals(itemID));
+
+                    if (itemToRM != null)
+                    {
+                        _context.Carts.Remove(itemToRM);
+                        _context.SaveChanges();
+                        return Ok("Đã xóa sản phẩm ra khỏi giỏ rồi nha");
+                    }
+                }
+            }
+            return NotFound("Bro wtf did just send ?");
+        }
+
+        [HttpPost, ActionName("Update")]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult UpdateItems([FromBody]UpdateCartView model)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                var cartItems = HttpContext.Session.GetObjectFromJson<List<Carts>>(GetCartId());
+                if (cartItems != null)
+                {
+                    //var itemToRM = cartItems.FirstOrDefault(items => items.AutoId.Equals(model.id));
+
+                    var itemIndex = cartItems.FindIndex(sp => sp.AutoId.Equals(model.id.Trim()));
+                    cartItems[itemIndex].Quantity = model.quantity;
+                    HttpContext.Session.SetObjectAsJson(GetCartId(), cartItems);
+                    return Ok("Cap nhat r nha bo");
+                }
+            }
+            else
+            {
+                var items = _context.Carts.FirstOrDefault(sp => sp.AutoId.Equals(model.id));
+                if (items != null)
+                {
+                    items.Quantity = model.quantity;
+                    _context.Carts.Update(items);
+                    _context.SaveChangesAsync();
+                    return Ok("Cap nhat r nha bo");
+                }
+            }
+            return NotFound("Broo what are u doingg");
+        }
 
         private bool Additems(addCartView addInfo)
         {
@@ -55,7 +131,8 @@ namespace DOTNET_CuoiKy.Controllers
                 // user already logged in and the cart migrations is gud
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
-                    var items = _context.Carts.SingleOrDefault(item => item.SpId == sptoAdd.IdsanPham && item.CartId.Equals(ShoppingCartId));
+                    var items = _context.Carts
+                        .SingleOrDefault(item => item.SpId == sptoAdd.IdsanPham && item.CartId.Equals(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value));
                     if (items == null)
                     {
                         //Guid random = new Guid();
@@ -132,7 +209,7 @@ namespace DOTNET_CuoiKy.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return _context.Carts.Where(c => c.CartId.Equals(ShoppingCartId)).Include(sp => sp.Sp).ToList();
+                return _context.Carts.Where(c => c.CartId.Equals(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)).Include(sp => sp.Sp).ToList();
             }
             var cartItems = HttpContext.Session.GetObjectFromJson<List<Carts>>(GetCartId());
             return cartItems;
@@ -144,7 +221,7 @@ namespace DOTNET_CuoiKy.Controllers
             {
                 if (HttpContext.User.Identity.IsAuthenticated)
                 {
-                    HttpContext.Session.SetString(CartSessionKey, HttpContext.User.Claims.FirstOrDefault(n => n.Type == ClaimTypes.Sid).Value);
+                    HttpContext.Session.SetString(CartSessionKey, HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 }
                 else
                 {
@@ -161,19 +238,19 @@ namespace DOTNET_CuoiKy.Controllers
         }
 
         //not sure why we need this but ok
-        private string CartIdgenerator()
-        {
-            Random RandNum = new Random();
-            string id = "";
-            bool run = true;
-            do
-            {
-                Guid random = new Guid();
-                id = random.ToString();
-                if (_context.Carts.Where(c => c.AutoId.Equals(id)) == null) run = false;
-            } while (run);
+        //private string CartIdgenerator()
+        //{
+        //    Random RandNum = new Random();
+        //    string id = "";
+        //    bool run = true;
+        //    do
+        //    {
+        //        Guid random = new Guid();
+        //        id = random.ToString();
+        //        if (_context.Carts.Where(c => c.AutoId.Equals(id)) == null) run = false;
+        //    } while (run);
 
-            return id;
-        }
+        //    return id;
+        //}
     }
 }
