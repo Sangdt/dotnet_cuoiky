@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width" />
 
     <!-- Bootstrap core CSS     -->
-    <link href="~/admin/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/admin/assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- Animation library for notifications   -->
     <link href="~/admin/assets/css/animate.min.css" rel="stylesheet" />
     <!--  Light Bootstrap Table core CSS    -->
@@ -37,9 +37,8 @@
     <script src="~/admin/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="~/admin/assets/js/demo.js"></script>
-    @RenderSection("script", required: false)
     @RenderSection("style", required: false)
-    @RenderSection("warningModal", required:false)
+    @RenderSection("warningModal", required: false)
 
 </head>
 <body>
@@ -140,5 +139,7 @@
             </p>
         </div>
     </footer>
+    @RenderSection("script", required: false)
+
 </body>
 </html>
