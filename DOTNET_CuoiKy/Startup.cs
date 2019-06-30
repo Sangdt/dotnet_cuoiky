@@ -50,6 +50,7 @@ namespace DOTNET_CuoiKy
                 options.IdleTimeout = TimeSpan.FromHours(5);//You can set Time   
             });
             services.AddDistributedMemoryCache();
+            // Breadcrumbs extension very cool !!!
             services.AddBreadcrumbs(GetType().Assembly, options =>
             {
                 options.TagName = "div";

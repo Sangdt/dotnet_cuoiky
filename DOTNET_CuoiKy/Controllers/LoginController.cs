@@ -65,6 +65,7 @@ namespace DOTNET_CuoiKy.Controllers
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, kh.NameKh!=null? kh.NameKh : kh.Email),
+                        new Claim(ClaimTypes.Role, "Client"),
                         new Claim(ClaimTypes.NameIdentifier, kh.IdKhachHang.ToString())
                     };
                     ClaimsIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -46,9 +46,9 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name,admin.Username),
-                        new Claim(ClaimTypes.Role,"admin")
+                        new Claim(ClaimTypes.Role,"Admin")
                     };
-                    ClaimsIdentity user = new ClaimsIdentity(claims, "login");
+                    ClaimsIdentity user = new ClaimsIdentity(claims, "Admin");
                     ClaimsPrincipal principal = new ClaimsPrincipal(user);
 
                     await HttpContext.SignInAsync("Admin", principal);
