@@ -166,13 +166,15 @@ namespace DOTNET_CuoiKy.Models.DB
                     .HasColumnName("idNguoimua")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.IdchiTiet)
-                    .HasColumnName("idchiTiet")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.NgayTao)
                     .HasColumnName("ngayTao")
                     .HasColumnType("date");
+
+                entity.Property(e => e.Nguoinhan)
+                    .IsRequired()
+                    .HasColumnName("nguoinhan")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.SoLuong)
                     .HasColumnName("soLuong")
