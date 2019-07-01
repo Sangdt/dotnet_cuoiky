@@ -20,7 +20,7 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
         }
         private List<Carts> GetCartitems()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated && User.Identity.AuthenticationType!= "Admin")
             {
                 return _context.Carts.Where(c => c.CartId.Equals(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)).Include(sp => sp.Sp).ToList();
             }

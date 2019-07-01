@@ -212,7 +212,7 @@ namespace DOTNET_CuoiKy.Controllers
         {
             if (UserStatus.getUserStatus(this, "Client"))
             {
-                return _context.Carts.Where(c => c.CartId.Equals(HttpContext.User.FindFirst(n => n.Type == ClaimTypes.NameIdentifier && n.Type.Equals("Client")).Value)).Include(sp => sp.Sp).ToList();
+                return _context.Carts.Where(c => c.CartId.Equals(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)).Include(sp => sp.Sp).ToList();
             }
             var cartItems = HttpContext.Session.GetObjectFromJson<List<Carts>>(GetCartId());
             return cartItems;
@@ -225,7 +225,7 @@ namespace DOTNET_CuoiKy.Controllers
             {
                 if (UserStatus.getUserStatus(this, "Client"))
                 {
-                    HttpContext.Session.SetString(CartSessionKey, HttpContext.User.FindFirst(n => n.Type == ClaimTypes.NameIdentifier && n.Type.Equals("Client")).Value);
+                    HttpContext.Session.SetString(CartSessionKey, HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 }
                 else
                 {
