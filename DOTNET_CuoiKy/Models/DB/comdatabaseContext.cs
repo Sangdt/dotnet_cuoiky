@@ -27,7 +27,7 @@ namespace DOTNET_CuoiKy.Models.DB
 //        {
 //            if (!optionsBuilder.IsConfigured)
 //            {
-// //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 //                optionsBuilder.UseMySQL("host=db4free.net;port=3306;user=dotnetcuoiky;password=gVNUSduQf64Gncf;database=comdatabase;oldguids=true;");
 //            }
 //        }
@@ -156,6 +156,17 @@ namespace DOTNET_CuoiKy.Models.DB
                 entity.Property(e => e.Idhoadon)
                     .HasColumnName("idhoadon")
                     .HasColumnType("int(11)");
+
+                entity.Property(e => e.Diachi)
+                    .IsRequired()
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ghichu)
+                    .IsRequired()
+                    .HasColumnName("ghichu")
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.IdNguoimua)
                     .HasColumnName("idNguoimua")

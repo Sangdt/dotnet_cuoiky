@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Giỏ hàng của bẹn";
     float total = 0;
+    var cartID = "";
+    int cartQuatity = Model != null ? Model.Count() : 0;
 }
 @section cartStyle{
     <style>
@@ -176,7 +178,7 @@
                     {
                         float? subtotal = item.Sp.GiaSp.Value * item.Quantity;
                         total = total + subtotal.Value;
-
+                        cartID = item.CartId;
                         <tr>
                             <td data-th="Product">
                                 <div class="row">
@@ -211,16 +213,17 @@
                     </tr>
                 </tfoot>
             </table>
-            if (User.Identity.IsAuthenticated)
+            if (UserStatus.getRazorPageUserStatus(this, "Client"))
             {
                 <div style="display:none" class="checkOutForm container ">
-                    <h2 class="text-center">Thông tin giao hàng</h2>
+                    <h2 class="text-center">Thông tin đơn hàng</h2>
                     <div class="row justify-content-center">
                         <div class="col-12 col-md-8 col-lg-6 pb-5">
 
                             <!--Form with header-->
 
-                            <form method="post">
+                            <form method="post" action="/HoaDon/CreateInvoce">
+                                @Html.AntiForgeryToken()
                                 <div class="card border-primary rounded-0">
                                     <div class="card-header p-0">
                                         <div class="bg-info text-white text-center py-2">
@@ -229,16 +232,17 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-3">
-
+                                        <input hidden="hidden" type="text" class="form-control" id="" value="@total.ToString()" name="toltal">
+                                        <input hidden="hidden" type="text" class="form-control" id="" value=@cartQuatity name="Quantity">
                                         <!--Body-->
                                         <div class="form-group">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
-                                                        Tên của bạn <i class="fa fa-user text-info"></i>
+                                                        Tên người nhận <i class="fa fa-user text-info"></i>
                                                     </div>
                                                 </div>
-                                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre y Apellido" required>
+                                                <input type="text" class="form-control" id="" name="tenNguoiNhan" placeholder="Tên của người nhận đơn hàng" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -246,16 +250,15 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Email <i class="fa fa-envelope text-info"></i></div>
                                                 </div>
-                                                <input type="email" class="form-control" id="nombre" name="email" placeholder="ejemplo@gmail.com" required>
+                                                <input type="email" class="form-control" id="" name="Email" placeholder="ejemplo@gmail.com" required>
                                             </div>
                                         </div>
-
                                         <div class="form-group">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Số điện thoại <i class="fa fa-phone text-info"></i></div>
                                                 </div>
-                                                <input type="number" class="form-control" id="nombre" name="email" placeholder="ejemplo@gmail.com" required>
+                                                <input type="number" class="form-control" id="" name="SodienThoai" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -263,7 +266,15 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Địa chỉ  <i class="fa fa-address-book text-info"></i></div>
                                                 </div>
-                                                <input type="text" class="form-control" id="nombre" name="email" placeholder="ejemplo@gmail.com" required>
+                                                <input type="text" class="form-control" id="" name="DiaChi" placeholder="ejemplo@gmail.com" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Ghi chú  <i class="fa fa-address-book text-info"></i></div>
+                                                </div>
+                                                <textarea type="text" class="form-control" name="GhiChu" required></textarea>
                                             </div>
                                         </div>
                                         <div class="text-center">

@@ -17,6 +17,8 @@ namespace DOTNET_CuoiKy.Models.DB
         public int? SoLuong { get; set; }
         public DateTime? NgayTao { get; set; }
         public string TinhTrang { get; set; }
+        public string Ghichu { get; set; }
+        public string Diachi { get; set; }
 
         public virtual Khachhang IdNguoimuaNavigation { get; set; }
         public virtual ICollection<Chitiethd> Chitiethd { get; set; }
