@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdsanPham" />
             <div class="form-group">
@@ -24,9 +24,10 @@
                 <input asp-for="GiaSp" class="form-control" />
                 <span asp-validation-for="GiaSp" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" action="myform.cgi">
                 <label asp-for="Hinh1" class="control-label"></label>
-                <input asp-for="Hinh1" class="form-control" />
+                <input asp-for="Hinh1" type="image" src="/wp-content/uploads/sendform.png" alt="Submit" width="100"> class="form-control" />
+
                 <span asp-validation-for="Hinh1" class="text-danger"></span>
             </div>
             <div class="form-group">
