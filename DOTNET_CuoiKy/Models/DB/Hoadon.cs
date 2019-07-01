@@ -13,7 +13,7 @@ namespace DOTNET_CuoiKy.Models.DB
         public int Idhoadon { get; set; }
         public int IdNguoimua { get; set; }
         public string Nguoinhan { get; set; }
-        public float? TongTien { get; set; }
+        public string TongTien { get; set; }
         public int? SoLuong { get; set; }
         public DateTime? NgayTao { get; set; }
         public string TinhTrang { get; set; }

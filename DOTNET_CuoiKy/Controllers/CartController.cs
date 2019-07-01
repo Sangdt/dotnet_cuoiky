@@ -135,7 +135,7 @@ namespace DOTNET_CuoiKy.Controllers
                 if (UserStatus.getUserStatus(this, "Client"))
                 {
                     var items = _context.Carts
-                        .SingleOrDefault(item => item.SpId == sptoAdd.IdsanPham && item.CartId.Equals(HttpContext.User.FindFirst(n => n.Type == ClaimTypes.NameIdentifier && n.Type.Equals("Client")).Value));
+                        .SingleOrDefault(item => item.SpId == sptoAdd.IdsanPham && item.CartId.Equals(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value));
                     if (items == null)
                     {
                         //Guid random = new Guid();
@@ -237,7 +237,7 @@ namespace DOTNET_CuoiKy.Controllers
             else if (UserStatus.getUserStatus(this, "Client") && HttpContext.Session.GetString(CartSessionKey) != null)
             {
                 HttpContext.Session.SetString(CartSessionKey, HttpContext.User.Claims //make sure everything at this point is stay in client
-                                                .FirstOrDefault(n => n.Type == ClaimTypes.NameIdentifier && n.Type.Equals("Client")).Value);
+                                                .FirstOrDefault(n => n.Type == ClaimTypes.NameIdentifier).Value);
             }
             return HttpContext.Session.GetString(CartSessionKey);
         }

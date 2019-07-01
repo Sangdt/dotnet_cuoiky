@@ -12,7 +12,7 @@
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
                     <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@items.IdsanPham">@items.TenSp</a>
-                    <a href="#">@items.GiaSp</a>
+                    <a href="#">@string.Format("{0,0:C0}",items.GiaSp)</a>
                 </div>
                 <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@items.IdsanPham">
                     <h5>@items.MoTa</h5>
