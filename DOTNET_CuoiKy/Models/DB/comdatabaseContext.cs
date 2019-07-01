@@ -27,7 +27,7 @@ namespace DOTNET_CuoiKy.Models.DB
 //        {
 //            if (!optionsBuilder.IsConfigured)
 //            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+// //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 //                optionsBuilder.UseMySQL("host=db4free.net;port=3306;user=dotnetcuoiky;password=gVNUSduQf64Gncf;database=comdatabase;oldguids=true;");
 //            }
 //        }
@@ -83,11 +83,6 @@ namespace DOTNET_CuoiKy.Models.DB
                 entity.Property(e => e.SpId)
                     .HasColumnName("spID")
                     .HasColumnType("int(11)");
-
-                entity.Property(e => e.Total)
-                    .HasColumnName("total")
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Sp)
                     .WithMany(p => p.Carts)
@@ -185,7 +180,10 @@ namespace DOTNET_CuoiKy.Models.DB
                     .HasMaxLength(45)
                     .IsUnicode(false);
 
-                entity.Property(e => e.TongTien).HasColumnName("tongTien");
+                entity.Property(e => e.TongTien)
+                    .HasColumnName("tongTien")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.IdNguoimuaNavigation)
                     .WithMany(p => p.Hoadon)

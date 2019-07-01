@@ -269,11 +269,13 @@
                     <button type="button" class="btn btn-info addConfirm">
                         Thêm vào giỏ
                     </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="closeBNT btn btn-secondary" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
+
+   
 }
 
 @section addToCartScripts {
@@ -307,6 +309,7 @@
             $('.addConfirm').click(function () {
                 //var $this = ;
                 $(this).prop('disabled', true);
+                $(".closeBNT").prop('disabled', true);
                 $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`);
                 var itemID = $(this).attr("id");
                 var itemQuantity = $('#spQuantity').val();
@@ -325,6 +328,8 @@
                         $('#Mbd').hide();
                         $('.addConfirm').html(`<i class="fa fa-check" aria-hidden="true"></i>`);
                         $('#update-message').text(data)
+                        $(".closeBNT").prop('disabled', false);
+
                         addspSuccess = true;
                         console.log(data);
                     }).fail(function (data) {
@@ -378,7 +383,7 @@
                                 <span class="review-no">41 reviews</span>
                             </div>
                             <p>@Model.MoTa</p>
-                            <h4 style="text-align:unset !important" class="price">Giá: <span>@Model.GiaSp</span></h4>
+                            <h4 style="text-align:unset !important" class="price">Giá: <span>@string.Format("{0,0:C0}",Model.GiaSp)</span></h4>
 
 
                             <div class="action">

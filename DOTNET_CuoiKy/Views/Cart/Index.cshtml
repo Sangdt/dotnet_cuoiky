@@ -4,7 +4,20 @@
     ViewData["Title"] = "Giỏ hàng của bẹn";
     float total = 0;
 }
-@section cartBootstrap{
+@section cartStyle{
+    <style>
+        .bd-example-modal-lg .modal-dialog {
+            display: table;
+            position: relative;
+            margin: 0 auto;
+            top: calc(50% - 24px);
+        }
+
+            .bd-example-modal-lg .modal-dialog .modal-content {
+                background-color: transparent;
+                border: none;
+            }
+    </style>
     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
     {
         @Html.AntiForgeryToken()
@@ -31,6 +44,16 @@
             </div>
         </div>
     </div>
+    <div id="updateShit" class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="width: 48px">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </div>
+        </div>
+    </div>
+
+}
+@section cartBootstrap{
 
     <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/popper.js"></script>
@@ -40,6 +63,10 @@
             console.log('clicked');
             var display = document.getElementsByClassName('checkOutForm')[0];
             display.style.display = display.style.display === "none" ? "block" : "none";
+        }
+        function onQuantitychange(e) {
+            console.log(e)
+            $('#' + e.name).prop('disabled', false);
         }
         $(function () {
             var deleteConfirm = false;
@@ -60,6 +87,8 @@
             $('.updateBNT').on('click', function () {
                 var itemID = $(this).attr("id");
                 var spQuantity = $("input[name=" + itemID + "]").val();
+                $('#updateShit').modal('show');
+
                 console.log('quantity', spQuantity)
                 var form = $('#__AjaxAntiForgeryForm');
                 var token = $('input[name="__RequestVerificationToken"]', form).val();
@@ -74,6 +103,7 @@
                         }
                     }).done(function (data) {
                         console.log(data)
+                        $('.updateShit').modal('hide');
                         window.location.reload(true);
                     }).fail(function (data) {
                         console.log(data);
@@ -111,10 +141,11 @@
 
         });
 
-        $(".checkouBnt").click(function() {
-           $('html,body').animate({scrollTop: $(".checkOutForm").offset().top},'slow');
+        $(".checkouBnt").click(function () {
+            $('html,body').animate({ scrollTop: $(".checkOutForm").offset().top }, 'slow');
         });
-    </script>
+
+/**/</script>
 }
 <div class="container-fluid">
     <h2>Giỏ hàng của bạn</h2>
@@ -158,14 +189,14 @@
                                     </div>
                                 </div>
                             </td>
-                            <td data-th="Price">@string.Format("{0:C}", item.Sp.GiaSp)</td>
+                            <td data-th="Price">@string.Format("{0,0:C0}", item.Sp.GiaSp)</td>
                             <td data-th="Quantity">
-                                <input name="@item.AutoId" type="number" class="form-control text-center" min="1" value="@item.Quantity" style="color:black !important;width: 50%;">
+                                <input name="@item.AutoId" onchange="onQuantitychange(this);" type="number" class="form-control text-center" min="1" value="@item.Quantity" style="color:black !important;width: 50%;">
                             </td>
-                            <td data-th="Subtotal" class="text-center">@string.Format("{0:C}", subtotal)</td>
+                            <td data-th="Subtotal" class="text-center">@string.Format("{0, 0:C0}", subtotal)</td>
                             <td class="actions" data-th="">
-                                <a id="@item.AutoId" class="updateBNT btn btn-info btn-sm"><i class="fa fa-refresh"></i></a>
-                                <a data-id="@item.Sp.TenSp" id="@item.AutoId" class="deleteBNT btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                <button type="button" disabled id="@item.AutoId" class="updateBNT btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                                <button type="button" data-id="@item.Sp.TenSp" id="@item.AutoId" class="deleteBNT btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>
                     }
@@ -175,7 +206,7 @@
                     <tr>
                         <td><a asp-action="Index" asp-controller="home" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua đồ chứ nhỉ</a></td>
                         <td colspan="2" class="hidden-xs"></td>
-                        <td class="hidden-xs text-center"><strong>Tổng cộng @string.Format("{0:C}", total)</strong></td>
+                        <td class="hidden-xs text-center"><strong>Tổng cộng @string.Format("{0,0:C0}", total)</strong></td>
                         <td><button type="button" class="checkouBnt btn btn-success btn-block" onclick="showcheckOut()">Thanh toán <i class="fa fa-angle-right"></i></button></td>
                     </tr>
                 </tfoot>
@@ -189,7 +220,7 @@
 
                             <!--Form with header-->
 
-                            <form  method="post">
+                            <form method="post">
                                 <div class="card border-primary rounded-0">
                                     <div class="card-header p-0">
                                         <div class="bg-info text-white text-center py-2">

@@ -17,7 +17,7 @@
     <!--Load style like a fucking pro-->
     @RenderSection("StyleLogin", required: false)
     @RenderSection("SanphamDetailStyle", required: false)
-
+    @RenderSection("cartStyle", false);
     <style>
         .checkOutForm {
             background-color: azure;
@@ -114,7 +114,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="delConfirm" type="button" class="btn btn-danger">Xóa</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class=" closeBNT btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -277,6 +277,8 @@
                 $('#modal-contets').text("Đang gửi dữ liệu để xóa xin chờ....");
                 $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`);
                 var data = $(this).attr("data-id");
+                $(this).prop('disabled', true);
+                $('.closeBNT').prop('disabled', true);
                 var form = $('#__AjaxAntiForgeryForm');
                 var token = $('input[name="__RequestVerificationToken"]', form).val();
                 console.log('lala', data)
@@ -285,6 +287,7 @@
                     function (data) {
                         $('#delConfirm').html(`<i class="fa fa-check" aria-hidden="true"></i>`);
                         $('#modal-contets').text(data);
+                        $('.closeBNT').prop('disabled', false);
                         deleteSuccess = true;
                     }).fail(function (data) {
                         //console.log('server response', JSON.stringify(data.responseText))
