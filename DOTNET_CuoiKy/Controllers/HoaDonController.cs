@@ -66,11 +66,14 @@ namespace DOTNET_CuoiKy.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> CreateInvoce(InvoceModel model)
         {
+            // Tach tao hoa don ra rieng de nhin va de tranh loi null
             Hoadon HDtoADD = HoadonCreator(model);
             List<Chitiethd> chitiethds = new List<Chitiethd>();
+            // Lay danh sach san pham trong cart
             var cartLst = await _context.Carts.Include(sp => sp.Sp).ToListAsync();
             foreach (Carts item in cartLst)
             {
+                // Tao chi tiet hoa don vs san pham vaf thong tin trong cart
                 Chitiethd chitiet = new Chitiethd()
                 {
                     IdHd = HDtoADD.Idhoadon,
@@ -80,8 +83,9 @@ namespace DOTNET_CuoiKy.Controllers
                 };
                 chitiethds.Add(chitiet);
             }
+            
             _context.Hoadon.Add(HDtoADD);
-            await _context.Chitiethd.AddRangeAsync(chitiethds);
+            _context.Chitiethd.AddRange(chitiethds);
             await _context.SaveChangesAsync();
             return Json("Đã Lưu thông tin hóa đơn");
         }
