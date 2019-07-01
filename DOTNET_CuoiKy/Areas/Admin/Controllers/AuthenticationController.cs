@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+
 using DOTNET_CuoiKy.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using DOTNET_CuoiKy.Helper;
 
 namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
@@ -25,14 +24,12 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         private bool checkUserinfo(Admin user)
         {
             return _context.Admin.FirstOrDefault(n => n.Username.Equals(user.Username)) != null && _context.Admin.FirstOrDefault(n => n.Password.Equals(user.Password)) != null;
-
-         
         }
         [AllowAnonymous]
         // GET: Authentication
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
+            if (UserStatus.getUserStatus(this,"admin"))
             {
                 return RedirectToAction("Index", "Home", new { message = "Đăng nhập rồi bạn ie" });
             }
@@ -40,22 +37,21 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Admin admin, string returnUrl = "")
+        public async Task<IActionResult> Index(Admin admin, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var cc = checkUserinfo(admin);
                 if (checkUserinfo(admin))
                 {
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name,admin.Username),
-                        new Claim(ClaimTypes.Role,"admin")
+                        new Claim(ClaimTypes.Role,"Admin")
                     };
-                    ClaimsIdentity user = new ClaimsIdentity(claims, "login");
+                    ClaimsIdentity user = new ClaimsIdentity(claims, "Admin");
                     ClaimsPrincipal principal = new ClaimsPrincipal(user);
 
-                    await HttpContext.SignInAsync("Admin",principal);
+                    await HttpContext.SignInAsync("Admin", principal);
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);
                     else

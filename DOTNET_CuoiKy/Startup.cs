@@ -40,8 +40,8 @@ namespace DOTNET_CuoiKy
                 options.LoginPath = "/Login/";
                 options.ExpireTimeSpan = TimeSpan.FromHours(2);
             }).AddCookie("Admin", o =>{
-                o.ExpireTimeSpan = TimeSpan.FromHours(5);
                 o.LoginPath = "/Admin/Authentication/";
+                o.ExpireTimeSpan = TimeSpan.FromHours(5);
             });
             services.AddDbContext<comdatabaseContext>(options => options.UseMySQL(connectionString));
             //Luôn Luôn để sau cookies config
@@ -50,6 +50,7 @@ namespace DOTNET_CuoiKy
                 options.IdleTimeout = TimeSpan.FromHours(5);//You can set Time   
             });
             services.AddDistributedMemoryCache();
+            // Breadcrumbs extension very cool !!!
             services.AddBreadcrumbs(GetType().Assembly, options =>
             {
                 options.TagName = "div";

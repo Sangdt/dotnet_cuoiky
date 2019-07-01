@@ -8,11 +8,11 @@ using DOTNET_CuoiKy.Models.Client;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using DOTNET_CuoiKy.Models;
 using Microsoft.AspNetCore.Http;
 using DOTNET_CuoiKy.Helper;
+using SmartBreadcrumbs.Nodes;
 
 namespace DOTNET_CuoiKy.Controllers
 {
@@ -41,13 +41,16 @@ namespace DOTNET_CuoiKy.Controllers
             return null;
         }
 
+      
         [HttpGet("/login")]
         public IActionResult Login()
         {
-            if (User.Identity.IsAuthenticated)
+            if (UserStatus.getUserStatus(this, "Client"))
             {
                 return RedirectToAction("Index", "Home", new { message = "Đăng nhập rồi bạn ie" });
             }
+            var loginNode = new MvcBreadcrumbNode("Login", "Login", "Đăng nhập");
+            ViewData["BreadcrumbNode"] = loginNode;
             return View();
         }
         [HttpPost("/login")]
@@ -62,15 +65,16 @@ namespace DOTNET_CuoiKy.Controllers
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, kh.NameKh!=null? kh.NameKh : kh.Email),
+                        new Claim(ClaimTypes.Role, "Client"),
                         new Claim(ClaimTypes.NameIdentifier, kh.IdKhachHang.ToString())
                     };
-                    ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
+                    ClaimsIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
 
                     var oldCartID = HttpContext.Session.GetString(CartSessionKey);
                     var cartList = oldCartID!=null ? HttpContext.Session.GetObjectFromJson<List<Carts>>(oldCartID) : new List<Carts>();
                     List<Carts> lstToadd = new List<Carts>();
-                    if (cartList != null||cartList.Count()>0)
+                    if (cartList != null&&cartList.Count()>0)
                     {
                         foreach(var item in cartList)
                         {
@@ -91,12 +95,12 @@ namespace DOTNET_CuoiKy.Controllers
                                 lstToadd.Add(item);
                             }
                         }
+                        //make sure shit in session is clean af so we can go on with items from db
+                        HttpContext.Session.SetObjectAsJson(oldCartID, "");
                         await _context.Carts.AddRangeAsync(lstToadd);
                     }
 
                     await _context.SaveChangesAsync();
-                    //make sure shit in session is clean af so we can go on with items from db
-                    HttpContext.Session.SetObjectAsJson(oldCartID, null);
                     HttpContext.Session.SetString(CartSessionKey, kh.IdKhachHang.ToString());
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
@@ -110,12 +114,15 @@ namespace DOTNET_CuoiKy.Controllers
             return View();
         }
 
-
+        //[Breadcrumb("Đăng ký tài khoản")]
         [HttpGet("/register")]
         public IActionResult Register()
         {
+            var loginNode = new MvcBreadcrumbNode("Register", "Login", "Tạo tài khoản mới");
+            ViewData["BreadcrumbNode"] = loginNode;
             return View();
         }
+
         private bool checkUserinfosignup(LoginRegisterModel model)
         {
             if (_context.Khachhang.FirstOrDefault(n => n.Email.Equals(model.userName)) != null || _context.Khachhang.FirstOrDefault(n => n.SoDiethoai.Equals(model.userName)) != null)
@@ -124,6 +131,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return true;
         }
+
         [HttpPost("/register")]
         [ValidateAntiForgeryToken]
         public IActionResult Register(LoginRegisterModel registerModel)
@@ -149,6 +157,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return View();
         }
+
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [HttpGet("/logout")]
         public async Task<IActionResult> Logout()

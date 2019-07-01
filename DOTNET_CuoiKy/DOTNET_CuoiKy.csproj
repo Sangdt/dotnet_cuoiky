@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\admin\assets\css\animate.min.css" />
-    <None Include="wwwroot\admin\assets\css\bootstrap.min.css" />
     <None Include="wwwroot\admin\assets\css\demo.css" />
     <None Include="wwwroot\admin\assets\css\light-bootstrap-dashboard.css" />
     <None Include="wwwroot\admin\assets\css\pe-icon-7-stroke.css" />

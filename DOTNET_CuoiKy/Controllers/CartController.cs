@@ -50,7 +50,7 @@ namespace DOTNET_CuoiKy.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult DeleteItems(string itemID)
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
+            if (!UserStatus.getUserStatus(this,"Client"))
             {
                 var cartItems = HttpContext.Session.GetObjectFromJson<List<Carts>>(GetCartId());
                 if (cartItems != null)
@@ -96,7 +96,7 @@ namespace DOTNET_CuoiKy.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult UpdateItems([FromBody]UpdateCartView model)
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
+            if (!UserStatus.getUserStatus(this, "Client"))
             {
                 var cartItems = HttpContext.Session.GetObjectFromJson<List<Carts>>(GetCartId());
                 if (cartItems != null)
@@ -132,10 +132,10 @@ namespace DOTNET_CuoiKy.Controllers
             if (sptoAdd != null)
             {
                 // user already logged in and the cart migrations is gud
-                if (HttpContext.User.Identity.IsAuthenticated)
+                if (UserStatus.getUserStatus(this, "Client"))
                 {
                     var items = _context.Carts
-                        .SingleOrDefault(item => item.SpId == sptoAdd.IdsanPham && item.CartId.Equals(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value));
+                        .SingleOrDefault(item => item.SpId == sptoAdd.IdsanPham && item.CartId.Equals(HttpContext.User.FindFirst(n => n.Type == ClaimTypes.NameIdentifier && n.Type.Equals("Client")).Value));
                     if (items == null)
                     {
                         //Guid random = new Guid();
@@ -210,9 +210,9 @@ namespace DOTNET_CuoiKy.Controllers
 
         private List<Carts> GetCartitems()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (UserStatus.getUserStatus(this, "Client"))
             {
-                return _context.Carts.Where(c => c.CartId.Equals(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)).Include(sp => sp.Sp).ToList();
+                return _context.Carts.Where(c => c.CartId.Equals(HttpContext.User.FindFirst(n => n.Type == ClaimTypes.NameIdentifier && n.Type.Equals("Client")).Value)).Include(sp => sp.Sp).ToList();
             }
             var cartItems = HttpContext.Session.GetObjectFromJson<List<Carts>>(GetCartId());
             return cartItems;
@@ -220,11 +220,12 @@ namespace DOTNET_CuoiKy.Controllers
 
         private string GetCartId()
         {
+            // setting cartId if we haven't have any
             if (HttpContext.Session.GetString(CartSessionKey) == null)
             {
-                if (HttpContext.User.Identity.IsAuthenticated)
+                if (UserStatus.getUserStatus(this, "Client"))
                 {
-                    HttpContext.Session.SetString(CartSessionKey, HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                    HttpContext.Session.SetString(CartSessionKey, HttpContext.User.FindFirst(n => n.Type == ClaimTypes.NameIdentifier && n.Type.Equals("Client")).Value);
                 }
                 else
                 {
@@ -233,9 +234,10 @@ namespace DOTNET_CuoiKy.Controllers
                     HttpContext.Session.SetString(CartSessionKey, tempCartId.ToString());
                 }
             }
-            else if (HttpContext.User.Identity.IsAuthenticated && HttpContext.Session.GetString(CartSessionKey) != null)
+            else if (UserStatus.getUserStatus(this, "Client") && HttpContext.Session.GetString(CartSessionKey) != null)
             {
-                HttpContext.Session.SetString(CartSessionKey, HttpContext.User.Claims.FirstOrDefault(n => n.Type == ClaimTypes.NameIdentifier).Value);
+                HttpContext.Session.SetString(CartSessionKey, HttpContext.User.Claims //make sure everything at this point is stay in client
+                                                .FirstOrDefault(n => n.Type == ClaimTypes.NameIdentifier && n.Type.Equals("Client")).Value);
             }
             return HttpContext.Session.GetString(CartSessionKey);
         }
