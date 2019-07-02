@@ -21,7 +21,7 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         {
             _context = context;
         }
-        private bool checkUserinfo(Admin user)
+        private bool checkUserinfo(Admins user)
         {
             return _context.Admin.FirstOrDefault(n => n.Username.Equals(user.Username)) != null && _context.Admin.FirstOrDefault(n => n.Password.Equals(user.Password)) != null;
         }
@@ -37,7 +37,7 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Admin admin, string returnUrl)
+        public async Task<IActionResult> Index(Admins admin, string returnUrl)
         {
             if (ModelState.IsValid)
             {

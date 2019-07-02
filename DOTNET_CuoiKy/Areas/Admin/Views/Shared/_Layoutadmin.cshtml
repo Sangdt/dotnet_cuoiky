@@ -42,6 +42,8 @@
 
 </head>
 <body>
+    @RenderSection("UploadModal", required: false)
+
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
             <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
@@ -100,19 +102,19 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                                    <li>
+                            <li>
 
-                                        <div class="login">
-                                            <a>Xin chào @User.Claims.FirstOrDefault(n => n.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")).Value</a>
-                                        </div>
-                                    </li>
-                                    <br />
-                                    <li>
-                                        <div class="register">
-                                            <a asp-action="Logout" asp-controller="Authentication"> Đăng xuất </a>
-                                        </div>
+                                <div class="login">
+                                    <a>Xin chào @User.Claims.FirstOrDefault(n => n.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")).Value</a>
+                                </div>
+                            </li>
+                            <br />
+                            <li>
+                                <div class="register">
+                                    <a asp-action="Logout" asp-controller="Authentication"> Đăng xuất </a>
+                                </div>
 
-                                    </li>
+                            </li>
                             <li class="separator hidden-lg hidden-md"></li>
                         </ul>
                     </div>
@@ -135,6 +137,6 @@
         </div>
     </footer>
     @RenderSection("script", required: false)
-
+    @RenderSection("UploadIMGScripts",false)
 </body>
 </html>

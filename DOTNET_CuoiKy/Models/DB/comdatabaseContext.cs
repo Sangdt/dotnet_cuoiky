@@ -15,7 +15,7 @@ namespace DOTNET_CuoiKy.Models.DB
         {
         }
 
-        public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<Admins> Admin { get; set; }
         public virtual DbSet<Carts> Carts { get; set; }
         public virtual DbSet<Chitiethd> Chitiethd { get; set; }
         public virtual DbSet<Danhmuc> Danhmuc { get; set; }
@@ -36,7 +36,7 @@ namespace DOTNET_CuoiKy.Models.DB
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
-            modelBuilder.Entity<Admin>(entity =>
+            modelBuilder.Entity<Admins>(entity =>
             {
                 entity.HasKey(e => e.Username);
 

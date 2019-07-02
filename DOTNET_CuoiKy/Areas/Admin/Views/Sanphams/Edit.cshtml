@@ -5,13 +5,70 @@
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 
+@section UploadModal{
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    <div class="modal fade" id="meomeo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabel">Upload Hình</h4>
+                </div>
+                <div class="modal-body" id="update-message">
+                    <form method="post" enctype="multipart/form-data" action="/Uploadimage/Upload">
+                        <input name="idSP" class="idContainer form-control" />
+                        <input name="vitriHinh" class="imgPOS form-control" />
+                        <input name="images" type="file" class="form-control" />
+                        <input type="submit" value="Up Hình" class="btn btn-default" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section UploadIMGScripts
+{
+    <script type="text/javascript">
+        $('#meomeo').on('hidden.bs.modal', function (e) {
+            if (deleteConfirm) {
+                window.location.reload(true);
+            } else {
+                console.log("Hidden")
+                //Clean old id to make sure shit wont break  !!!!!
+                $("input[name=idSP]").val("");
+                $("input[name=vitriHinh]").val("");
+            }
+        })
+
+        $(function () {
+            $('.uploadIMG').on('click', function () {
+                var idSP = $(this).attr('id');
+                var thuTuHinh = $(this).attr('data-id');
+                $("input[name=idSP]").val(idSP);
+                $("input[name=vitriHinh]").val(thuTuHinh);
+                $('#meomeo').modal('show');
+            })
+        })
+
+    </script>
+}
+<div class="container">
 <h1>Edit</h1>
 
 <h4>Sanpham</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" >
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdsanPham" />
             <div class="form-group">
@@ -24,27 +81,6 @@
                 <input asp-for="GiaSp" class="form-control" />
                 <span asp-validation-for="GiaSp" class="text-danger"></span>
             </div>
-            <div class="form-group" action="myform.cgi">
-                <label asp-for="Hinh1" class="control-label"></label>
-                <input asp-for="Hinh1" type="file" name="Hinh1" value="Hinh1" id="Hinh1" />
-                
-                <span asp-validation-for="Hinh1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hinh2" class="control-label"></label>
-                <input asp-for="Hinh2" class="form-control" />
-                <span asp-validation-for="Hinh2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hinh3" class="control-label"></label>
-                <input asp-for="Hinh3" class="form-control" />
-                <span asp-validation-for="Hinh3" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hinh4" class="control-label"></label>
-                <input asp-for="Hinh4" class="form-control" />
-                <span asp-validation-for="Hinh4" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="MoTa" class="control-label"></label>
                 <input asp-for="MoTa" class="form-control" />
@@ -56,13 +92,38 @@
                 <span asp-validation-for="DanhMuc" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group" action="myform.cgi">
+            <label asp-for="Hinh1" class="control-label"></label>
+            <img src="~/@Model.Hinh1" id="Hinh1" />
+            <button data-id="1" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
+        </div>
+        <div class="form-group">
+            <label asp-for="Hinh2" class="control-label"></label>
+            <img src="~/@Model.Hinh2" id="Hinh2" />
+            <button data-id="2" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
 
+        </div>
+        <div class="form-group">
+            <label asp-for="Hinh3" class="control-label"></label>
+            <img src="~/@Model.Hinh3" id="Hinh3" />
+            <button data-id="3" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
+        </div>
+        <div class="form-group">
+            <label asp-for="Hinh4" class="control-label"></label>
+            <img src="~/@Model.Hinh4" id="Hinh4" />
+            <button data-id="4" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
+
+        </div>
+    </div>
+</div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+</div>

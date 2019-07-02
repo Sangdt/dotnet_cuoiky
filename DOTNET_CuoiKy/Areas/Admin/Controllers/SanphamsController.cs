@@ -95,7 +95,7 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdsanPham,TenSp,GiaSp,Hinh1,Hinh2,Hinh3,Hinh4,MoTa,DanhMuc")] Sanpham sanpham)
+        public async Task<IActionResult> Create([Bind("IdsanPham,TenSp,GiaSp,MoTa,DanhMuc")] Sanpham sanpham)
         {
             if (ModelState.IsValid)
             {
@@ -129,7 +129,7 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdsanPham,TenSp,GiaSp,Hinh1,Hinh2,Hinh3,Hinh4,MoTa,DanhMuc")] Sanpham sanpham)
+        public async Task<IActionResult> Edit(int id, [Bind("IdsanPham,TenSp,GiaSp,MoTa,DanhMuc")] Sanpham sanpham)
         {
             if (id != sanpham.IdsanPham)
             {

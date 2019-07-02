@@ -51,8 +51,8 @@ namespace DOTNET_CuoiKy.Models.PartialviewLoader
         {
             //Select random san pham here
             int i = 4;
-            //List<Sanpham> splist = _context.Sanpham.ToList();
-            List<Sanpham> splist = GetSanphams();
+            List<Sanpham> splist = _context.Sanpham.ToList();
+            //List<Sanpham> splist = GetSanphams();
             List <Sanpham> dmLst = new List<Sanpham>();
             Sanpham sptemp = new Sanpham();
             while (i >= 0)

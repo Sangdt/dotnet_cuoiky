@@ -14,7 +14,7 @@
     <script src="~/js/active.js"></script>
 }
 @{
-    if (Model == null && Model.Count() > 0)
+    if (Model != null || Model.Count() > 0)
     {
         @await Component.InvokeAsync(nameof(SanphamHotLoader).Replace("ViewComponent", ""))
     }
