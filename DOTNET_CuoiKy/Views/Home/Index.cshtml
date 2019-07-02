@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<DOTNET_CuoiKy.Models.DB.Sanpham>
+@{
     ViewData["Title"] = "Home Page";
 }
 @section sanphamloader{
@@ -12,10 +13,65 @@
     <script src="~/js/bootstrap/bootstrap.min.js"></script>
     <script src="~/js/active.js"></script>
 }
-@await Component.InvokeAsync(nameof(SanphamHotLoader).Replace("ViewComponent", ""))
+@{
+    if (Model == null && Model.Count() > 0)
+    {
+        @await Component.InvokeAsync(nameof(SanphamHotLoader).Replace("ViewComponent", ""))
+    }
+}
 @await Component.InvokeAsync(nameof(DanhMucloader).Replace("ViewComponent", ""))
 @if (ViewData["LoginMess"] != null)
 {
 
     <h3 class="text-center">@ViewData["LoginMess"]</h3>
 }
+@if (ViewData["TIMKIEM"] != null)
+{
+
+    <h3 class="text-center">@ViewData["TIMKIEM"]</h3>
+}
+
+<section class="blog_area section_padding_0_80">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-12 col-md-6">
+                            <div class="single-post wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                                <!-- Post Thumb -->
+                                <div class="post-thumb">
+                                    <a asp-action="Chitiets" asp-controller="home" asp-route-idsp="@item.IdsanPham">
+                                        <img src="~/@item.Hinh1" alt="">
+                                    </a>
+                                </div>
+                                <!-- Post Content -->
+                                <div class="post-content">
+                                    @ViewData["moemoe"]
+                                    <div class="post-meta d-flex">
+                                        <div class="post-author-date-area d-flex">
+                                            <!-- Post Author -->
+
+                                        </div>
+                                        <!-- Post Comment & Share Area -->
+                                    </div>
+                                    <h4 class="post-headline">@item.TenSp</h4>
+                                    <h4 class="post-headline">@item.GiaSp</h4>
+
+                                    @if (item.DanhMuc == 5)
+                                    {
+                                        <h6 class="post-headline">Giá sản phẩm chỉ áp dụng khi mua thêm hoặc mua riêng.</h6>
+                                    }
+                                    <a class="read-more" asp-action="Chitiets" asp-controller="home" asp-route-idsp="@item.IdsanPham"> Continue Reading.. </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

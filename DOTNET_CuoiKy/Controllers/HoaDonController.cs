@@ -24,15 +24,16 @@ namespace DOTNET_CuoiKy.Controllers
         {
             return View();
         }
+        //Method to create an Invoke
         Hoadon HoadonCreator(InvoceModel model)
         {
             Hoadon hoadon;
+            // If this is the first one in db
             if (_context.Hoadon.Count() <= 0)
             {
-                Random rndNum = new Random();
                 hoadon = new Hoadon()
                 {
-                    Idhoadon = rndNum.Next(1000, 9999),
+                    Idhoadon = 1000,
                     IdNguoimua = int.Parse(this.User.FindFirst(ClaimTypes.NameIdentifier).Value),
                     Nguoinhan = model.tenNguoiNhan,
                     TongTien = model.toltal,
@@ -45,6 +46,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             else
             {
+                // else just add up the value
                 int idToAdd = _context.Hoadon.Last().Idhoadon + 1;
                 hoadon = new Hoadon()
                 {

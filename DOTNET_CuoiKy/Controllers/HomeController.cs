@@ -16,7 +16,7 @@ namespace DOTNET_CuoiKy.Controllers
     public class HomeController : Controller
     {
         private readonly comdatabaseContext db;
-        public HomeController (comdatabaseContext context)
+        public HomeController(comdatabaseContext context)
         {
             db = context;
         }
@@ -25,7 +25,7 @@ namespace DOTNET_CuoiKy.Controllers
         public IActionResult Index(string message)
         {
             ViewData["LoginMess"] = message;
-            return View();
+            return View(new List<Sanpham>());
         }
 
         [HttpGet("/danhmucs/{dmID}")]
@@ -46,16 +46,17 @@ namespace DOTNET_CuoiKy.Controllers
         [HttpGet("/sanphams/{idsp}")]
         public IActionResult Chitiets(int idsp)
         {
-            var sanpham = db.Sanpham.Include(dm=>dm.DanhMucNavigation).FirstOrDefault(n => n.IdsanPham == idsp);
+            var sanpham = db.Sanpham.Include(dm => dm.DanhMucNavigation).FirstOrDefault(n => n.IdsanPham == idsp);
             if (sanpham != null)
             {
                 // Manually create the nodes (assuming you used the attribute to create a Default node, otherwise create it manually too).
-                var categoryNode = new MvcBreadcrumbNode("DanhMucs", "Home",sanpham.DanhMucNavigation.TenDm.ToUpper())
+                var categoryNode = new MvcBreadcrumbNode("DanhMucs", "Home", sanpham.DanhMucNavigation.TenDm.ToUpper())
                 {
-                    RouteValues= new { dmID = sanpham.DanhMuc.Value }
+                    RouteValues = new { dmID = sanpham.DanhMuc.Value }
                 };
                 // When manually creating nodes, you have the option to use route values in case you need them.
-                var productNode = new MvcBreadcrumbNode( "Chitiets", "Home", sanpham.TenSp) {
+                var productNode = new MvcBreadcrumbNode("Chitiets", "Home", sanpham.TenSp)
+                {
                     Parent = categoryNode
                 };
 
@@ -65,7 +66,7 @@ namespace DOTNET_CuoiKy.Controllers
             }
             return RedirectToAction("Error");
         }
-      
+
 
         public IActionResult Privacy()
         {
@@ -76,6 +77,21 @@ namespace DOTNET_CuoiKy.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<IActionResult> timkiem(string searchString)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var food = db.Sanpham.Where(s => s.TenSp.Contains(searchString));
+                if (food.Count() > 0)
+                {
+                    return View("Index", await food.ToListAsync());
+                }
+            }
+            ViewData["TIMKIEM"] ="Nhap clgv ??? hong kiem thay cha";
+            return View("Index", new List<Sanpham>());
+
         }
     }
 }
