@@ -21,8 +21,8 @@
                 </div>
                 <div class="modal-body" id="update-message">
                     <form method="post" enctype="multipart/form-data" action="/Uploadimage/Upload">
-                        <input name="idSP" class="idContainer form-control" />
-                        <input name="vitriHinh" class="imgPOS form-control" />
+                        <input type="hidden" name="idSP" class="idContainer form-control" />
+                        <input type="hidden" name="vitriHinh" class="imgPOS form-control" />
                         <input name="images" type="file" class="form-control" />
                         <input type="submit" value="Up Hình" class="btn btn-default" />
                     </form>

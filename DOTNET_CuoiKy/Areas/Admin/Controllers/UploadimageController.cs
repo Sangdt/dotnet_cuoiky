@@ -38,32 +38,42 @@ namespace DOTNET_CuoiKy.Areas.Admin.Controllers
                 case "1":
                     {
                         // Xoa hinh cu 
-                        var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", spToUpdate.Hinh1);
-                        if (System.IO.File.Exists(oldpath))
+                        if (!string.IsNullOrEmpty(spToUpdate.Hinh1))
                         {
-                            System.IO.File.Delete(oldpath);
+                            var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", spToUpdate.Hinh1);
+                            if (System.IO.File.Exists(oldpath))
+                            {
+                                System.IO.File.Delete(oldpath);
+                            }
                         }
                         // thay the duong dan hinh moi vao db
                         spToUpdate.Hinh1 = PathDB;
+
                         break;
                     }
                 case "2":
                     {
                         // Xoa hinh cu 
-                        var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", spToUpdate.Hinh2);
-                        if (System.IO.File.Exists(oldpath))
+                        if (!string.IsNullOrEmpty(spToUpdate.Hinh2))
                         {
-                            System.IO.File.Delete(oldpath);
+                            var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", spToUpdate.Hinh2);
+                            if (System.IO.File.Exists(oldpath))
+                            {
+                                System.IO.File.Delete(oldpath);
+                            }
                         }
                         spToUpdate.Hinh2 = PathDB;
                         break;
                     }
                 case "3":
                     {
-                        var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", spToUpdate.Hinh3);
-                        if (System.IO.File.Exists(oldpath))
+                        if (!string.IsNullOrEmpty(spToUpdate.Hinh3))
                         {
-                            System.IO.File.Delete(oldpath);
+                            var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", spToUpdate.Hinh3);
+                            if (System.IO.File.Exists(oldpath))
+                            {
+                                System.IO.File.Delete(oldpath);
+                            }
                         }
                         spToUpdate.Hinh3 = PathDB;
                         break;
@@ -71,10 +81,13 @@ namespace DOTNET_CuoiKy.Areas.Admin.Controllers
                 case "4":
                     {
                         // Xoa hinh cu 
-                        var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", spToUpdate.Hinh4);
-                        if (System.IO.File.Exists(oldpath))
+                        if (!string.IsNullOrEmpty(spToUpdate.Hinh4))
                         {
-                            System.IO.File.Delete(oldpath);
+                            var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", spToUpdate.Hinh4);
+                            if (System.IO.File.Exists(oldpath))
+                            {
+                                System.IO.File.Delete(oldpath);
+                            }
                         }
                         spToUpdate.Hinh4 = PathDB;
                         break;
