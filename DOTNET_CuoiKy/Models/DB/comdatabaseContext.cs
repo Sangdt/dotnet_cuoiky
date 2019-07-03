@@ -252,7 +252,7 @@ namespace DOTNET_CuoiKy.Models.DB
 
                 entity.HasIndex(e => e.DanhMuc)
                     .HasName("danhMucFK_idx");
-
+                
                 entity.Property(e => e.IdsanPham)
                     .HasColumnName("idsanPham")
                     .HasColumnType("int(11)");
@@ -298,6 +298,7 @@ namespace DOTNET_CuoiKy.Models.DB
                     .HasForeignKey(d => d.DanhMuc)
                     .HasConstraintName("danhMucFK");
             });
+
         }
     }
 }

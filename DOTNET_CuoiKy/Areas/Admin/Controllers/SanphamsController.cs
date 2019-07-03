@@ -168,12 +168,22 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
             var sanpham = await _context.Sanpham.FindAsync(int.Parse(itemId));
             if (sanpham != null)
             {
+                List<Carts> cart = await _context.Carts.Where(sp => sp.SpId == sanpham.IdsanPham).ToListAsync();
+                List<Chitiethd> CTHD = await _context.Chitiethd.Where(sp => sp.IdSp == sanpham.IdsanPham).ToListAsync();
                 string tenSp = sanpham.TenSp;
+                if (cart.Count() > 0)
+                {
+                    _context.Carts.RemoveRange(cart);
+                }
+                if (CTHD.Count() > 0)
+                {
+                    _context.Chitiethd.RemoveRange(CTHD);
+                }
                 _context.Sanpham.Remove(sanpham);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
                 var newspLSt = _context.Sanpham.Include(dm => dm.DanhMucNavigation);
-                return Ok("Xóa sản phẩm "+tenSp+ " được rồi nè dân chơi !!!");
+                return Ok("Xóa sản phẩm "+tenSp+ " được rồi nè !!!");
             }
             return NotFound("Không xóa được rồi, kiếm không ra");
           
