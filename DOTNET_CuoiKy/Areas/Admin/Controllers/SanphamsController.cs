@@ -9,6 +9,7 @@ using DOTNET_CuoiKy.Models.DB;
 using MySql.Data.MySqlClient;
 using System.Threading;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
@@ -160,6 +161,43 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
             return View(sanpham);
         }
 
+        private void deleteImages(Sanpham sp)
+        {
+            if (!string.IsNullOrWhiteSpace(sp.Hinh1))
+            {
+                var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", sp.Hinh1);
+                if (System.IO.File.Exists(oldpath))
+                {
+                    System.IO.File.Delete(oldpath);
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(sp.Hinh2))
+            {
+                var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", sp.Hinh2);
+                if (System.IO.File.Exists(oldpath))
+                {
+                    System.IO.File.Delete(oldpath);
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(sp.Hinh3))
+            {
+                var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", sp.Hinh3);
+                if (System.IO.File.Exists(oldpath))
+                {
+                    System.IO.File.Delete(oldpath);
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(sp.Hinh4))
+            {
+                var oldpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", sp.Hinh4);
+                if (System.IO.File.Exists(oldpath))
+                {
+                    System.IO.File.Delete(oldpath);
+                }
+            }
+        }
+
+
         // POST: admin/Sanphams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -180,6 +218,7 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
                     _context.Chitiethd.RemoveRange(CTHD);
                 }
                 _context.Sanpham.Remove(sanpham);
+                deleteImages(sanpham);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
                 var newspLSt = _context.Sanpham.Include(dm => dm.DanhMucNavigation);
