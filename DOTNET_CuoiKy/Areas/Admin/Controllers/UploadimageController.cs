@@ -10,9 +10,12 @@ using DOTNET_CuoiKy.Models.DB;
 using DOTNET_CuoiKy.Areas.Admin.Models;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Http;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DOTNET_CuoiKy.Areas.Admin.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class UploadimageController : Controller
     {
         private readonly comdatabaseContext db;
@@ -134,9 +137,9 @@ namespace DOTNET_CuoiKy.Areas.Admin.Controllers
 
                 // Bat dau luu tru hinh
                 await updateImagesPOSAsync(sptoUpdate, uploadInfo.vitriHinh, newFileName, uploadInfo.images);
-               
+                return Json(("Đã thêm hình vào sản phẩm " + sptoUpdate.TenSp).ToUpper());
             }
-            return Json("OK baby");
+            return Json("Lỗi");
         }
     }
 }

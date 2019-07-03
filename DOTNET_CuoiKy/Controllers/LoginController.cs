@@ -136,14 +136,14 @@ namespace DOTNET_CuoiKy.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(LoginRegisterModel registerModel)
         {
-            string password2 = PasswordCrypt.CreateMD5(registerModel.passWord);
             if (ModelState.IsValid)
             {
-
+                string password2 = PasswordCrypt.CreateMD5(registerModel.passWord);
                 if (checkUserinfosignup(registerModel))
                 {
                     Khachhang obj = new Khachhang();
                     obj.Email = registerModel.userName;
+                    obj.NameKh = registerModel.NameKh;
                     //obj.SoDiethoai = registerModel.userName;
                     obj.Password = password2;
                     _context.Khachhang.Add(obj);

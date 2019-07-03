@@ -85,11 +85,12 @@ namespace DOTNET_CuoiKy.Controllers
                 };
                 chitiethds.Add(chitiet);
             }
-            
+            _context.Carts.RemoveRange(cartLst);
             _context.Hoadon.Add(HDtoADD);
             _context.Chitiethd.AddRange(chitiethds);
             await _context.SaveChangesAsync();
-            return Json("Đã Lưu thông tin hóa đơn");
+            ViewData["Message"] = "Đã lưu thông tin Hóa Đơn, mã hóa đơn của bạn là " + HDtoADD.Idhoadon.ToString();
+            return RedirectToAction("Index","HoaDon");
         }
     }
 }

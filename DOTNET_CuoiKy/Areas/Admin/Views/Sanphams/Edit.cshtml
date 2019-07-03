@@ -20,7 +20,7 @@
                     <h4 class="modal-title" id="modalLabel">Upload Hình</h4>
                 </div>
                 <div class="modal-body" id="update-message">
-                    <form method="post" enctype="multipart/form-data" action="/Uploadimage/Upload">
+                    <form id="uploadForm" method="post" enctype="multipart/form-data" action="/Uploadimage/Upload">
                         <input type="hidden" name="idSP" class="idContainer form-control" />
                         <input type="hidden" name="vitriHinh" class="imgPOS form-control" />
                         <input name="images" type="file" class="form-control" />
@@ -38,8 +38,32 @@
 @section UploadIMGScripts
 {
     <script type="text/javascript">
+        var uploadSuccess = false;
+        $("#uploadForm").submit(function (event) {
+            var formData = new FormData();
+            formData.append("images", $('[name="images"]')[0].files[0]);
+            formData.append("idSP", $('[name="idSP"]').val());
+            formData.append("vitriHinh", $('[name="vitriHinh"]').val());
+            event.stopPropagation();
+            event.preventDefault();
+            $.ajax({
+                url: $(this).attr("action"),
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data) {
+                    console.log(data)
+                    $('#update-message').text(data);
+                    uploadSuccess = true;
+                }
+            });
+            return false;
+        });
+
+
         $('#meomeo').on('hidden.bs.modal', function (e) {
-            if (deleteConfirm) {
+            if (uploadSuccess) {
                 window.location.reload(true);
             } else {
                 console.log("Hidden")
@@ -57,73 +81,74 @@
                 $("input[name=vitriHinh]").val(thuTuHinh);
                 $('#meomeo').modal('show');
             })
+
         })
 
     </script>
 }
 <div class="container">
-<h1>Edit</h1>
+    <h1>Edit</h1>
 
-<h4>Sanpham</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdsanPham" />
-            <div class="form-group">
-                <label asp-for="TenSp" class="control-label"></label>
-                <input asp-for="TenSp" class="form-control" />
-                <span asp-validation-for="TenSp" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GiaSp" class="control-label"></label>
-                <input asp-for="GiaSp" class="form-control" />
-                <span asp-validation-for="GiaSp" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MoTa" class="control-label"></label>
-                <input asp-for="MoTa" class="form-control" />
-                <span asp-validation-for="MoTa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DanhMuc" class="control-label"></label>
-                <select asp-for="DanhMuc" class="form-control" asp-items="ViewBag.DanhMuc"></select>
-                <span asp-validation-for="DanhMuc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <div class="form-group" action="myform.cgi">
-            <label asp-for="Hinh1" class="control-label"></label>
-            <img src="~/@Model.Hinh1" id="Hinh1" />
-            <button data-id="1" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
-        </div>
-        <div class="form-group">
-            <label asp-for="Hinh2" class="control-label"></label>
-            <img src="~/@Model.Hinh2" id="Hinh2" />
-            <button data-id="2" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
-
-        </div>
-        <div class="form-group">
-            <label asp-for="Hinh3" class="control-label"></label>
-            <img src="~/@Model.Hinh3" id="Hinh3" />
-            <button data-id="3" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
-        </div>
-        <div class="form-group">
-            <label asp-for="Hinh4" class="control-label"></label>
-            <img src="~/@Model.Hinh4" id="Hinh4" />
-            <button data-id="4" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
-
+    <h4>Sanpham</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdsanPham" />
+                <div class="form-group">
+                    <label asp-for="TenSp" class="control-label"></label>
+                    <input asp-for="TenSp" class="form-control" />
+                    <span asp-validation-for="TenSp" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GiaSp" class="control-label"></label>
+                    <input asp-for="GiaSp" class="form-control" />
+                    <span asp-validation-for="GiaSp" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MoTa" class="control-label"></label>
+                    <input asp-for="MoTa" class="form-control" />
+                    <span asp-validation-for="MoTa" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DanhMuc" class="control-label"></label>
+                    <select asp-for="DanhMuc" class="form-control" asp-items="ViewBag.DanhMuc"></select>
+                    <span asp-validation-for="DanhMuc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
+                </div>
+            </form>
         </div>
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group" action="myform.cgi">
+                <label asp-for="Hinh1" class="control-label"></label>
+                <img src="~/@Model.Hinh1" id="Hinh1" />
+                <button data-id="1" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hinh2" class="control-label"></label>
+                <img src="~/@Model.Hinh2" id="Hinh2" />
+                <button data-id="2" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Hinh3" class="control-label"></label>
+                <img src="~/@Model.Hinh3" id="Hinh3" />
+                <button data-id="3" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hinh4" class="control-label"></label>
+                <img src="~/@Model.Hinh4" id="Hinh4" />
+                <button data-id="4" id="@Model.IdsanPham" class="btn btn-success uploadIMG">Chỉnh sửa hình ảnh</button>
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>

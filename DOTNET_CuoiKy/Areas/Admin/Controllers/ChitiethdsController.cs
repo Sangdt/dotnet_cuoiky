@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DOTNET_CuoiKy.Models.DB;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DOTNET_CuoiKy.Areas.admin.Controllers
 {
     [Area("admin")]
+    [Authorize(AuthenticationSchemes = "Admin")]
+
     public class ChitiethdsController : Controller
     {
         private readonly comdatabaseContext _context;
