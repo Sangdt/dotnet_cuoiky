@@ -183,7 +183,7 @@ namespace DOTNET_CuoiKy.Areas.admin.Controllers
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
                 var newspLSt = _context.Sanpham.Include(dm => dm.DanhMucNavigation);
-                return Ok("Xóa sản phẩm "+tenSp+ " được rồi nè !!!");
+                return Ok("Xóa sản phẩm "+tenSp+ " được rồi nè dân chơi !!!");
             }
             return NotFound("Không xóa được rồi, kiếm không ra");
           
